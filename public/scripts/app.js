@@ -1,51 +1,16 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
-
 $(document).ready(() => {
-  $('#user_info').submit((e) => {
-    console.log('submit works!!')
-    e.preventDefault();
-    const title = $("#user_info input[name='title']").val();
-    const description = $("#user_info input[name='description']").val();
-    const date = $("#user_info input[name='date']").val();
-    const name = $("#user_info input[name='name']").val();
-    const email = $("#user_info input[name='email']").val();
-    $.ajax({
-      method: 'POST',
-      url: '/db',
-      data: {
-        title: title,
-        description: description,
-        date: date,
-        name: name,
-        email: email
-      }
-    })
-
-  })
-  ajax_get()
+  $('input.timepicker').timepicker({})
   timepicker()
-})
-function ajax_get() {
-  $.get('/db', (data, status) => {
-    console.log('get date', data)
-  })
+  addDate()
 }
+)
 
-
+///TimePicker Function
 function timepicker() {
   // initialize input widgets first
   $('#time-picker .time').timepicker({
     'showDuration': true,
-    'timeFormat': 'g:ia'
+    'timeFormat': 'g:i a'
   });
 
   $('#time-picker .date').datepicker({
@@ -53,6 +18,12 @@ function timepicker() {
     'autoclose': true
   });
   // initialize datepair
-  $('#time-picker').datepair();
 }
-//
+function addDate() {
+  $('#new_date').click((e) => {
+    e.preventDefault()
+    $('#time-picker').append("<input name='date' type='text' class='date start'>")
+    $('#time-picker').append("<input name='from_time' type='text' class='time start'>")
+    $('#time-picker').append("<input name='to_time' type='text' class='time end'>")
+  })
+}
