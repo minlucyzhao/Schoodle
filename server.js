@@ -43,21 +43,46 @@ app.use("/api/users", usersRoutes(knex));
 app.get('/', (req, res) => {
   res.render("index");
 });
-app.post('/meeting', (req, res) => {
-  const { from_time, date } = req.body
-  console.log(from_time)
-  console.log(toTime(from_time))
-  console.log(date)
-  console.log(toDate(date))
-})
-app.get('/meeting', (req, res) => {
-  const { date, from_time } = req.body
 
-  res.render('meet')
-})
+
+//POSTing form on index.ejs
+app.post('/db', (req, res) => {
+  const event_title = req.body.title;
+  const event_description = req.body.description;
+  const event_date = toDate(req.body.date);
+  const event_from_time = toTime(req.body['from_time']);
+  const event_to_time = toTime(req.body['to_time']);
+  const user_name = req.body.name;
+  const user_email = req.body.email;
+
+    knex('events')
+    .insert([
+      {title: event_title, description: event_description}
+    ],
+      ['title', 'id'])
+    .then((results) => {
+      console.log('first test');
+      const returnedID = results[0].id;
+      return knex('dates')
+      .insert([
+        {event_id: returnedID}])
+    })
+    .then(() => {
+      console.log('testing log');
+      return knex('users')
+      .insert([
+      {name: user_name, email: user_email}
+      ])
+      })
+      res.redirect("/");
+});
+
+
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
 
 //function
 function toDate(dateStr) {
@@ -84,3 +109,7 @@ function toTime(time) {
   if (minutes < 10) sMinutes = "0" + sMinutes;
   return sHours + ":" + sMinutes
 }
+
+
+
+

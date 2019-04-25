@@ -1,29 +1,30 @@
-$(document).ready(() => {
-  $('input.timepicker').timepicker({})
-  timepicker()
-  addDate()
-}
-)
+// $(() => {
+//   $.ajax({
+//     method: "GET",
+//     url: "/api/users"
+//   }).done((users) => {
+//     for(user of users) {
+//       $("<div>").text(user.name).appendTo($("body"));
+//     }
+//   });;
+// });
 
-///TimePicker Function
+$(document).ready(() => {
+  $('#user_info').submit((e) => {
+    timepicker()
+  })
+}
+
 function timepicker() {
   // initialize input widgets first
   $('#time-picker .time').timepicker({
     'showDuration': true,
-    'timeFormat': 'g:i a'
+    'timeFormat': 'g:ia'
   });
 
   $('#time-picker .date').datepicker({
     'format': 'yyyy-m-d',
     'autoclose': true
   });
-  // initialize datepair
 }
-function addDate() {
-  $('#new_date').click((e) => {
-    e.preventDefault()
-    $('#time-picker').append("<input name='date' type='text' class='date start'>")
-    $('#time-picker').append("<input name='from_time' type='text' class='time start'>")
-    $('#time-picker').append("<input name='to_time' type='text' class='time end'>")
-  })
-}
+//
