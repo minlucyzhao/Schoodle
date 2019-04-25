@@ -41,63 +41,54 @@ app.use("/api/users", usersRoutes(knex));
 // Home page
 
 
-//FAKE DB
-const DB = [{
-  id: 1,
-  title: 'light house meeting',
-  description: '',
-  timeManage: [{
-    date: 'April 30',
-    time_range: '1:30 - 2:30',
-  }, {
-    date: 'April 31',
-    time_range: '2:30 - 3:30'
-  },
-  {
-    date: 'April 32',
-    time_range: '4:30 - 5:30'
-  }],
-  name: 'YIYAO',
-  email: 'a@example.com'
-}, {
-  id: 2,
-  title: 'light house meeting2',
-  description: '',
-  timeManage: [{
-    date: 'April 1',
-    time_range: '1:30 - 2:30',
-  }, {
-    date: 'April 2',
-    time_range: '2:30 - 3:30'
-  },
-  {
-    date: 'April 3',
-    time_range: '4:30 - 5:30'
-  }],
-  name: 'LUCY',
-  email: 'b@example.com'
-}]
+
 //function
 
 // ROUTE
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+
+//POSTing form on index.ejs
 app.post('/db', (req, res) => {
-  const { title, description, date, from_time, to_time, name, email } = req.body
-  DB.push({
-    id: DB.length + 1,
-    title: title,
-    description: description,
-    date: date,
-    name: name,
-    email: email
+  const event_title = req.body.title;
+  const event_description = req.body.description;
+  const event_date = req.body.date;
+  const event_from_time = req.body['from_time'];
+  const event_to_time = req.body['to_time'];
+  const user_name = req.body.name;
+  const user_email = req.body.email;
 
-  })
+    knex('events')
+    .insert([
+      {title: event_title, description: event_description}
+    ],
+      ['title', 'id'])
+    .then((results) => {
+      console.log('first test');
+      const returnedID = results[0].id;
+      return knex('dates')
+      .insert([
+        {event_id: returnedID}])
+    })
+    .then(() => {
+      console.log('testing log');
+      return knex('users')
+      .insert([
+      {name: user_name, email: user_email}
+      ])
+      })
+      res.redirect("/");
+});
 
-})
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+
+
 
