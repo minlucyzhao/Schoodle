@@ -38,66 +38,49 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-// Home page
-
-
-//FAKE DB
-const DB = [{
-  id: 1,
-  title: 'light house meeting',
-  description: '',
-  timeManage: [{
-    date: 'April 30',
-    time_range: '1:30 - 2:30',
-  }, {
-    date: 'April 31',
-    time_range: '2:30 - 3:30'
-  },
-  {
-    date: 'April 32',
-    time_range: '4:30 - 5:30'
-  }],
-  name: 'YIYAO',
-  email: 'a@example.com'
-}, {
-  id: 2,
-  title: 'light house meeting2',
-  description: '',
-  timeManage: [{
-    date: 'April 1',
-    time_range: '1:30 - 2:30',
-  }, {
-    date: 'April 2',
-    time_range: '2:30 - 3:30'
-  },
-  {
-    date: 'April 3',
-    time_range: '4:30 - 5:30'
-  }],
-  name: 'LUCY',
-  email: 'b@example.com'
-}]
-//function
 
 // ROUTE
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.render("index");
 });
-app.post('/db', (req, res) => {
-  const { title, description, date, from_time, to_time, name, email } = req.body
-  DB.push({
-    id: DB.length + 1,
-    title: title,
-    description: description,
-    date: date,
-    name: name,
-    email: email
-
-  })
-
+app.post('/meeting', (req, res) => {
+  const { from_time, date } = req.body
+  console.log(from_time)
+  console.log(toTime(from_time))
+  console.log(date)
+  console.log(toDate(date))
 })
+app.get('/meeting', (req, res) => {
+  const { date, from_time } = req.body
 
+  res.render('meet')
+})
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
+//function
+function toDate(dateStr) {
+  var from = dateStr.split("/")
+  var f = [from[2], from[0], from[1]].join('-')
+
+
+  return f
+}
+function toTime(time) {
+  var hours = Number(time.match(/^(\d+)/)[1]);
+  console.log(hours)
+  var minutes = Number(time.match(/:(\d+)/)[1]);
+  console.log(minutes)
+  var AMPM = time.match(/\s(.*)$/)[1];
+  console.log(AMPM)
+  if (AMPM === "pm" && hours < 12) { hours = hours + 12 }
+  if (AMPM === "am" && hours == 12) { hours = hours - 12 }
+  var sHours = hours.toString();
+  console.log(sHours)
+  var sMinutes = minutes.toString();
+  console.log(sMinutes)
+  if (hours < 10) sHours = "0" + sHours;
+  if (minutes < 10) sMinutes = "0" + sMinutes;
+  return sHours + ":" + sMinutes
+}
