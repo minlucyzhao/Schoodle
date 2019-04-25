@@ -9,8 +9,9 @@
 //   });;
 // });
 
-$(document).ready(
+$(document).ready(()=>{
   $('#user_info').submit((e)=>{
+    console.log('submit works!!')
     e.preventDefault();
     const title=$("#user_info input[name='title']").val();
     const description=$("#user_info input[name='description']").val();
@@ -29,4 +30,4 @@ $(document).ready(
     }})
   
   })
-  )
+})
