@@ -33,16 +33,8 @@ function showInput() {
     callBack(count)
     count++
   })
-<<<<<<< HEAD
-=======
-
->>>>>>> 9e433f0f99d84ff4e3b2ccb6e5916af7a6ae0d59
 }
 function callBack(count) {
   console.log(count)
   $(`#time-picker span:nth-child(${count})`).show()
-<<<<<<< HEAD
-=======
-
->>>>>>> 9e433f0f99d84ff4e3b2ccb6e5916af7a6ae0d59
 }
