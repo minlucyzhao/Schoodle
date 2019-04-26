@@ -57,7 +57,6 @@ app.get('/', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
-
   const event_from_time = req.body['from_time'];
   const event_to_time = req.body['to_time'];
   const event_date = req.body['date'];
@@ -81,8 +80,8 @@ app.post('/db', (req, res) => {
       console.log('event_id is', returnedID)
       console.log('cookie is', req.session.eventID)
       return knex('dates')
-      .insert([
-        { event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date) }])
+        .insert([
+          { event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date) }])
 
     })
     .then(() => {
@@ -105,14 +104,14 @@ app.get('/success', (req, res) => {
 app.get('/:hash', (req, res) => {
   const event = hashids.decode(req.params.hash)[0];
   console.log('event', event)
-  knex.select('day','from_time','to_time').from('dates').where('event_id', event)
-  .then(function (result) {
-    console.log("result", result);
-    return result;
-  
-  }).catch(function (err) {
-    throw err;
-  });
+  knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event)
+    .then(function (result) {
+      console.log("result", result);
+      return result;
+
+    }).catch(function (err) {
+      throw err;
+    });
   res.render('meet', { event: event })
 })
 
@@ -157,6 +156,3 @@ function toDate(dateStr) {
   var f = [from[2], from[0], from[1]].join('-')
   return f
 }
-
-
-
