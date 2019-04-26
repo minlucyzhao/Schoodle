@@ -81,7 +81,7 @@ app.post('/db', (req, res) => {
       console.log('event_id is', returnedID)
       console.log('cookie is', req.session.eventID)
       return knex('dates')
-      ert([
+      .insert([
         { event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date) }])
 
     })
@@ -97,15 +97,26 @@ app.post('/db', (req, res) => {
 });
 
 app.get('/success', (req, res) => {
-  const url = `localhost8081/${req.session.eventID}`
+  const url = `localhost8080/${req.session.eventID}`
   console.log('url is', url)
   res.render('success', { url: url })
 })
+
 app.get('/:hash', (req, res) => {
-  const event = hashids.decode(req.params.hash)
+  const event = hashids.decode(req.params.hash)[0];
   console.log('event', event)
+  knex.select('day','from_time','to_time').from('dates').where('event_id', event)
+  .then(function (result) {
+    console.log("result", result);
+    return result;
+  
+  }).catch(function (err) {
+    throw err;
+  });
   res.render('meet', { event: event })
 })
+
+
 
 //function
 // function toDate(dateStr) {
