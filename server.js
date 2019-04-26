@@ -116,7 +116,7 @@ function toTime(time) {
 // Saves event_id, user_id, address, latitude, longitude into Locations Table
 
 // GET request, query the Location Table based on event_id and user_id
-//returns the latitude and longitudes
+//returns the latitude and longitude
 
 // ROUTE MAP
 app.get('/map', (req,res) => {
@@ -124,25 +124,31 @@ app.get('/map', (req,res) => {
 });
 
 app.post('/map', (req,res) => {
-  console.log("hello");
+  // console.log("hello");
   console.log(req.body.address);
   let codeArray = geocode(req.body.address, function(mapData) {
 
   const address = mapData[0];
   const latitude = mapData[1];
   const longitude = mapData[2];
-  console.log("yes, it worked!")
+  // console.log("yes, it worked!")
   // console.log('longitude', longitude);
   // const event_id;
   // const user_id = 123; //fix later once integrate with form
 
   // console.log(userAddress);
-  // knex('locations')
-  //   .insert([{
-  //     address: userAddress, 
-  //     longitude: 
-  //     latitude: 
-  //   }],
+  knex('locations')
+    .insert({
+      address: address, 
+      longitude: longitude,
+      latitude: latitude,
+    }, ['address', 'longitude', 'latitude'])
+      .then((results) => {
+        console.log('address', address)
+        console.log('latitude', latitude)
+        console.log('longitude', longitude)
+        alert("it works!");
+      })
   // res.render("map");
   });
 });
