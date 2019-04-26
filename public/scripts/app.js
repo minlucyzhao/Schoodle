@@ -24,3 +24,16 @@ function copyToClipboard() {
   $copyText.select();
   document.execCommand("copy");
 }
+
+function showInput() {
+  let count = 7;
+  $('#new_date').click((e) => {
+    e.preventDefault()
+    callBack(count)
+    count++
+  })
+}
+function callBack(count) {
+  console.log(count)
+  $(`#time-picker span:nth-child(${count})`).show()
+}
