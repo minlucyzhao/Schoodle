@@ -57,8 +57,16 @@ app.get('/', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
+
+  const event_from_time = req.body['from_time'];
+  const event_to_time = req.body['to_time'];
+  const event_date = req.body['date'];
   const user_name = req.body.name;
   const user_email = req.body.email;
+
+  console.log("event from time:", event_from_time);
+  console.log("event to time", event_to_time);
+  console.log("event date", event_date);
 
   knex('events')
     .insert([
@@ -74,7 +82,8 @@ app.post('/db', (req, res) => {
       console.log('cookie is', req.session.eventID)
       return knex('dates')
         .insert([
-          { event_id: returnedID }])
+          { event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date) }])
+
     })
     .then(() => {
       console.log('testing log');
@@ -88,24 +97,33 @@ app.post('/db', (req, res) => {
 });
 
 app.get('/success', (req, res) => {
-  const url = `localhost8081/${req.session.eventID}`
+  const url = `localhost8080/${req.session.eventID}`
   console.log('url is', url)
   res.render('success', { url: url })
 })
+
 app.get('/:hash', (req, res) => {
-  const event = hashids.decode(req.params.hash)
+  const event = hashids.decode(req.params.hash)[0];
   console.log('event', event)
+  knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event)
+    .then(function (result) {
+      console.log("result", result);
+      return result;
+
+    }).catch(function (err) {
+      throw err;
+    });
   res.render('meet', { event: event })
 })
 
-//function
-// function toDate(dateStr) {
-//   var from = dateStr.split("/")
-//   var f = [from[2], from[0], from[1]].join('-')
 
 
-//   return f
-// }
+
+function toDate(dateStr) {
+  var from = dateStr.split("/")
+  var f = [from[2], from[0], from[1]].join('-')
+  return f
+}
 // function toTime(time) {
 //   var hours = Number(time.match(/^(\d+)/)[1]);
 //   console.log(hours)
@@ -131,4 +149,9 @@ app.listen(PORT, () => {
 
 
 
-
+//function to convert date to proper format for psql
+function toDate(dateStr) {
+  var from = dateStr.split("/")
+  var f = [from[2], from[0], from[1]].join('-')
+  return f
+}
