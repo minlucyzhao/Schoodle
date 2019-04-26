@@ -49,11 +49,15 @@ app.get('/', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
-  const event_date = toDate(req.body.date);
-  const event_from_time = toTime(req.body['from_time']);
-  const event_to_time = toTime(req.body['to_time']);
+  const event_from_time = req.body['from_time'];
+  const event_to_time = req.body['to_time'];
+  const event_date = req.body['date'];
   const user_name = req.body.name;
   const user_email = req.body.email;
+
+  console.log("event from time:", event_from_time);
+  console.log("event to time", event_to_time);
+  console.log("event date", event_date);
 
     knex('events')
     .insert([
@@ -65,7 +69,7 @@ app.post('/db', (req, res) => {
       const returnedID = results[0].id;
       return knex('dates')
       .insert([
-        {event_id: returnedID}])
+        {event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date)}])
     })
     .then(() => {
       console.log('testing log');
@@ -84,32 +88,12 @@ app.listen(PORT, () => {
 });
 
 
-//function
+//function to convert date to proper format for psql
 function toDate(dateStr) {
   var from = dateStr.split("/")
   var f = [from[2], from[0], from[1]].join('-')
-
-
   return f
 }
-function toTime(time) {
-  var hours = Number(time.match(/^(\d+)/)[1]);
-  console.log(hours)
-  var minutes = Number(time.match(/:(\d+)/)[1]);
-  console.log(minutes)
-  var AMPM = time.match(/\s(.*)$/)[1];
-  console.log(AMPM)
-  if (AMPM === "pm" && hours < 12) { hours = hours + 12 }
-  if (AMPM === "am" && hours == 12) { hours = hours - 12 }
-  var sHours = hours.toString();
-  console.log(sHours)
-  var sMinutes = minutes.toString();
-  console.log(sMinutes)
-  if (hours < 10) sHours = "0" + sHours;
-  if (minutes < 10) sMinutes = "0" + sMinutes;
-  return sHours + ":" + sMinutes
-}
-
 
 
 
