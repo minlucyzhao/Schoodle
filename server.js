@@ -57,12 +57,7 @@ app.get('/', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
-<<<<<<< HEAD
-  const user_name = req.body.name;
-  const user_email = req.body.email;
 
-  knex('events')
-=======
   const event_from_time = req.body['from_time'];
   const event_to_time = req.body['to_time'];
   const event_date = req.body['date'];
@@ -73,8 +68,7 @@ app.post('/db', (req, res) => {
   console.log("event to time", event_to_time);
   console.log("event date", event_date);
 
-    knex('events')
->>>>>>> 844e8eeb4a6cf6d4dd5f7d9185a6c261a98e35b5
+  knex('events')
     .insert([
       { title: event_title, description: event_description }
     ],
@@ -87,13 +81,9 @@ app.post('/db', (req, res) => {
       console.log('event_id is', returnedID)
       console.log('cookie is', req.session.eventID)
       return knex('dates')
-<<<<<<< HEAD
-        .insert([
-          { event_id: returnedID }])
-=======
-      .insert([
-        {event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date)}])
->>>>>>> 844e8eeb4a6cf6d4dd5f7d9185a6c261a98e35b5
+      ert([
+        { event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date) }])
+
     })
     .then(() => {
       console.log('testing log');
@@ -149,8 +139,7 @@ app.listen(PORT, () => {
 });
 
 
-<<<<<<< HEAD
-=======
+
 //function to convert date to proper format for psql
 function toDate(dateStr) {
   var from = dateStr.split("/")
@@ -158,6 +147,5 @@ function toDate(dateStr) {
   return f
 }
 
->>>>>>> 844e8eeb4a6cf6d4dd5f7d9185a6c261a98e35b5
 
 
