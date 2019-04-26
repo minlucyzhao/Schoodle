@@ -1,19 +1,8 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
+
 
 $(document).ready(() => {
-  $('#user_info').submit((e) => {
-    timepicker()
-  })
-}
+  timepicker()
+})
 
 function timepicker() {
   // initialize input widgets first
@@ -24,7 +13,7 @@ function timepicker() {
 
   $('#time-picker .date').datepicker({
     'format': 'yyyy-m-d',
+    minDate: 0,
     'autoclose': true
   });
 }
-//
