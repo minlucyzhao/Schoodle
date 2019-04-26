@@ -13,6 +13,14 @@ const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
+var cookieSession = require('cookie-session')
+app.use(cookieSession({
+  name: 'session',
+  keys: ['eventID', 'key2'],
+  maxAge: 24 * 60 * 60 * 1000
+}))
+var Hashids = require('hashids');
+var hashids = new Hashids('', 10);
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -49,66 +57,77 @@ app.get('/', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
-  const event_date = toDate(req.body.date);
-  const event_from_time = toTime(req.body['from_time']);
-  const event_to_time = toTime(req.body['to_time']);
   const user_name = req.body.name;
   const user_email = req.body.email;
 
-    knex('events')
+  knex('events')
     .insert([
-      {title: event_title, description: event_description}
+      { title: event_title, description: event_description }
     ],
       ['title', 'id'])
     .then((results) => {
       console.log('first test');
       const returnedID = results[0].id;
+      req.session.eventID = hashids.encode(returnedID);
+      console.log(req.session)
+      console.log('event_id is', returnedID)
+      console.log('cookie is', req.session.eventID)
       return knex('dates')
-      .insert([
-        {event_id: returnedID}])
+        .insert([
+          { event_id: returnedID }])
     })
     .then(() => {
       console.log('testing log');
       return knex('users')
-      .insert([
-      {name: user_name, email: user_email}
-      ])
-      })
-      res.redirect("/");
+        .insert([
+          { name: user_name, email: user_email }
+        ])
+    })
+    .then(() => { res.redirect("/success"); })
+
 });
 
+app.get('/success', (req, res) => {
+  const url = `localhost8081/${req.session.eventID}`
+  console.log('url is', url)
+  res.render('success', { url: url })
+})
+app.get('/:hash', (req, res) => {
+  const event = hashids.decode(req.params.hash)
+  console.log('event', event)
+  res.render('meet', { event: event })
+})
+
+//function
+// function toDate(dateStr) {
+//   var from = dateStr.split("/")
+//   var f = [from[2], from[0], from[1]].join('-')
+
+
+//   return f
+// }
+// function toTime(time) {
+//   var hours = Number(time.match(/^(\d+)/)[1]);
+//   console.log(hours)
+//   var minutes = Number(time.match(/:(\d+)/)[1]);
+//   console.log(minutes)
+//   var AMPM = time.match(/\s(.*)$/)[1];
+//   console.log(AMPM)
+//   if (AMPM === "pm" && hours < 12) { hours = hours + 12 }
+//   if (AMPM === "am" && hours == 12) { hours = hours - 12 }
+//   var sHours = hours.toString();
+//   console.log(sHours)
+//   var sMinutes = minutes.toString();
+//   console.log(sMinutes)
+//   if (hours < 10) sHours = "0" + sHours;
+//   if (minutes < 10) sMinutes = "0" + sMinutes;
+//   return sHours + ":" + sMinutes
+// }
 
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
-//function
-function toDate(dateStr) {
-  var from = dateStr.split("/")
-  var f = [from[2], from[0], from[1]].join('-')
-
-
-  return f
-}
-function toTime(time) {
-  var hours = Number(time.match(/^(\d+)/)[1]);
-  console.log(hours)
-  var minutes = Number(time.match(/:(\d+)/)[1]);
-  console.log(minutes)
-  var AMPM = time.match(/\s(.*)$/)[1];
-  console.log(AMPM)
-  if (AMPM === "pm" && hours < 12) { hours = hours + 12 }
-  if (AMPM === "am" && hours == 12) { hours = hours - 12 }
-  var sHours = hours.toString();
-  console.log(sHours)
-  var sMinutes = minutes.toString();
-  console.log(sMinutes)
-  if (hours < 10) sHours = "0" + sHours;
-  if (minutes < 10) sMinutes = "0" + sMinutes;
-  return sHours + ":" + sMinutes
-}
 
 
 
