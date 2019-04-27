@@ -23,6 +23,12 @@ $(document).ready(() => {
     $('#time-picker').show()
     $('.box2').slideUp()
   })
+  /// silde back
+  $('#time-picker .back').click((e) => {
+    e.preventDefault()
+    $('#time-picker').slideDown()
+    $('.box2').show()
+  })
 })
 
 function timepicker() {
@@ -46,7 +52,7 @@ function copyToClipboard() {
 }
 
 function showInput() {
-  let count = 7;
+  let count = 1;
   $('#new_date').click((e) => {
     e.preventDefault()
     callBack(count)
