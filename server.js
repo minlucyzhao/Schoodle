@@ -21,6 +21,7 @@ app.use(cookieSession({
 }))
 var Hashids = require('hashids');
 var hashids = new Hashids('', 10);
+const axios = require('axios');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -116,8 +117,7 @@ app.get('/:hash', (req, res) => {
 })
 
 
-
-//function
+// function
 // function toDate(dateStr) {
 //   var from = dateStr.split("/")
 //   var f = [from[2], from[0], from[1]].join('-')
@@ -143,12 +143,9 @@ app.get('/:hash', (req, res) => {
 //   return sHours + ":" + sMinutes
 // }
 
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
 
 //function to convert date to proper format for psql
 function toDate(dateStr) {
@@ -156,3 +153,76 @@ function toDate(dateStr) {
   var f = [from[2], from[0], from[1]].join('-')
   return f
 }
+
+//LUCY ADDED HERE//
+
+// POST request and takes string and converts into latitude and longitude
+// Saves event_id, user_id, address, latitude, longitude into Locations Table
+
+// GET request, query the Location Table based on event_id and user_id
+//returns the latitude and longitude
+
+// ROUTE MAP
+app.get('/map', (req, res) => {
+  res.render("map");
+});
+
+app.post('/map', (req, res) => {
+  // console.log("hello");
+  console.log(req.body.address);
+  let codeArray = geocode(req.body.address, function (mapData) {
+
+    const address = mapData[0];
+    const latitude = mapData[1];
+    const longitude = mapData[2];
+    // console.log("yes, it worked!")
+    // console.log('longitude', longitude);
+    // const event_id;
+    // const user_id = 123; //fix later once integrate with form
+
+    // console.log(userAddress);
+    knex('locations')
+      .insert({
+        address: address,
+        longitude: longitude,
+        latitude: latitude,
+      }, ['address', 'longitude', 'latitude'])
+      .then((results) => {
+        console.log('address', address)
+        console.log('latitude', latitude)
+        console.log('longitude', longitude)
+        alert("it works!");
+      })
+    // res.render("map");
+  });
+});
+
+
+function geocode(location, callback) {
+  let codeArray = [];
+  // let location = '22 Main st Boston MA';
+  axios.get('https://maps.googleapis.com/maps/api/geocode/json?', {
+    params: {
+      address: location,
+      key: 'AIzaSyDbhjMMS01YtWCehERYTwe912Q_2YNJuxI'
+    }
+  })
+    .then(function (response) {
+      let formattedAddress = response.data.results[0].formatted_address;
+      codeArray.push(formattedAddress);
+      let latitude = response.data.results[0].geometry.location.lat;
+      codeArray.push(latitude);
+      let longitude = response.data.results[0].geometry.location.lng;
+      codeArray.push(longitude);
+      // console.log("<<<<<<<<<<<<<<<<<", codeArray);
+      // console.log('codeArray', codeArray);
+      // console.log('formattedAddress', formattedAddress);
+      // console.log('latitude', latitude);
+      // console.log('longitude', longitude);
+      callback(codeArray);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
