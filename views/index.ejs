@@ -23,44 +23,26 @@
 </head>
 
 <body>
-  <h1>Hello World!</h1>
-  <form action="/db" method="POST" id='user_info'>
-    <!--TITLE & DESCRIPTION-->
-    <input name="title" placeholder="Your event title here" type="text">
-    <textarea name="description" id="description" placeholder="Your event description" cols="30" rows="10"></textarea>
+  <div id='gradient'>
+    <h1>Hello World!</h1>
+    <form action="/db" method="POST" id='user_info'>
+      <!--TITLE & DESCRIPTION-->
+      <input name="title" placeholder="Your event title here" type="text">
+      <textarea name="description" id="description" placeholder="Your event description" cols="30" rows="10"></textarea>
 
-    <!--TIME SLOT PICKER-->
-    <p id='time-picker'>
-      <button id='new_date'>add date</button>
-      <input name='date' type='text' class='date'><br>
-      <input name='from_time' type="text" class='time start'><br>
-      <input name='to_time' type='text' class='time end'>
-      <span>
+      <!--TIME SLOT PICKER-->
+      <p id='time-picker'>
+        <button id='new_date'>add date</button>
         <input name='date' type='text' class='date'><br>
         <input name='from_time' type="text" class='time start'><br>
         <input name='to_time' type='text' class='time end'>
-      </span>
-      <span>
-        <input name='date' type='text' class='date'><br>
-        <input name='from_time' type="text" class='time start'><br>
-        <input name='to_time' type='text' class='time end'>
-      </span>
-      <span>
-        <input name='date' type='text' class='date'><br>
-        <input name='from_time' type="text" class='time start'><br>
-        <input name='to_time' type='text' class='time end'>
-      </span>
-      <span>
-        <input name='date' type='text' class='date'><br>
-        <input name='from_time' type="text" class='time start'><br>
-        <input name='to_time' type='text' class='time end'>
-      </span>
-    </p>
-    <!--HOST NAME & EMAIL-->
-    <input name="name" placeholder="Your name" type="text">
-    <input name="email" placeholder="Your email" type="email">
-    <input value="Send my schgoogle!" type="submit">
-  </form>
+      </p>
+      <!--HOST NAME & EMAIL-->
+      <input name="name" placeholder="Your name" type="text">
+      <input name="email" placeholder="Your email" type="email">
+      <input value="Send my schgoogle!" type="submit">
+    </form>
+  </div>
 </body>
 
 </html>
