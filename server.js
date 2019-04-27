@@ -53,6 +53,10 @@ app.get('/', (req, res) => {
   res.render("index");
 });
 
+// ROUTE MAP
+app.get('/map', (req, res) => {
+  res.render("map");
+});
 
 //POSTing form on index.ejs
 app.post('/db', (req, res) => {
@@ -162,16 +166,10 @@ function toDate(dateStr) {
 // GET request, query the Location Table based on event_id and user_id
 //returns the latitude and longitude
 
-// ROUTE MAP
-app.get('/map', (req, res) => {
-  res.render("map");
-});
-
 app.post('/map', (req, res) => {
   // console.log("hello");
   console.log(req.body.address);
   let codeArray = geocode(req.body.address, function (mapData) {
-
     const address = mapData[0];
     const latitude = mapData[1];
     const longitude = mapData[2];
