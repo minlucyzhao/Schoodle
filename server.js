@@ -147,7 +147,6 @@ app.post('/map', (req,res) => {
         console.log('address', address)
         console.log('latitude', latitude)
         console.log('longitude', longitude)
-        alert("it works!");
       })
   // res.render("map");
   });
