@@ -4,6 +4,25 @@ $(document).ready(() => {
   timepicker()
   copyToClipboard()
   showInput()
+  //////slide right
+  $('.box_container button').click((e) => {
+    e.preventDefault()
+    $('.box_container').slideUp()
+    $('.box2').show('slow')
+
+  })
+  //////slide left
+  $('.box2 .left').click((e) => {
+    e.preventDefault()
+    $('.box_container').slideDown()
+    $('.box2').slideUp()
+  })
+  ////slide next
+  $('.box2 .right').click((e) => {
+    e.preventDefault()
+    $('#time-picker').show()
+    $('.box2').slideUp()
+  })
 })
 
 function timepicker() {
@@ -40,3 +59,8 @@ function callBack(count) {
   $(`#time-picker span:nth-child(${count})`).show()
 
 }
+$('.box2 left').click((e) => {
+  e.preventDefault()
+  $('.box_container').slideDown()
+  $('.box2').slideUp()
+})
