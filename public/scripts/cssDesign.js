@@ -57,4 +57,4 @@ function updateGradient() {
 }
 
 setInterval(updateGradient, 10);
-  ////////
+//////
