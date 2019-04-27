@@ -26,38 +26,23 @@
 <body>
   <section class="timeline">
     <ul>
+      <% for(let item of pickDate) { %>
       <li>
         <div>
-          <time>April 30 2-3pm</time>
-          <img src='https://avataaars.io/?avatarStyle=Transparent&topType=LongHairCurvy&accessoriesType=Kurt&hairColor=Brown&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Pizza&eyeType=EyeRoll&eyebrowType=AngryNatural&mouthType=Default&skinColor=Tanned' />
-          BOB
-          <img src='https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortRound&accessoriesType=Prescription01&hairColor=SilverGray&facialHairType=BeardMedium&facialHairColor=Blonde&clotheType=ShirtScoopNeck&clotheColor=PastelYellow&graphicType=Pizza&eyeType=EyeRoll&eyebrowType=RaisedExcited&mouthType=Default&skinColor=Brown' />
-          BILL
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=WinterHat3&accessoriesType=Prescription02&hatColor=Red&hairColor=Brown&facialHairType=BeardMagestic&facialHairColor=Red&clotheType=Hoodie&clotheColor=PastelGreen&eyeType=Hearts&eyebrowType=SadConcernedNatural&mouthType=Vomit&skinColor=Brown' />
-          Jason
+          <time>
+            <%= item.day %> from
+            <%= item.from_time %> to
+            <%= item.to_time %></time>
         </div>
       </li>
-      <li>
-        <div>
-          <time>April 31 2-3pm</time>
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Kurt&hatColor=PastelGreen&hairColor=Brown&facialHairType=MoustacheFancy&facialHairColor=Platinum&clotheType=CollarSweater&clotheColor=Gray02&eyeType=Side&eyebrowType=DefaultNatural&mouthType=Default&skinColor=DarkBrown' />
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Kurt&hatColor=PastelGreen&hairColor=Brown&facialHairType=MoustacheFancy&facialHairColor=Platinum&clotheType=CollarSweater&clotheColor=Gray02&eyeType=Side&eyebrowType=DefaultNatural&mouthType=Default&skinColor=DarkBrown' />
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Kurt&hatColor=PastelGreen&hairColor=Brown&facialHairType=MoustacheFancy&facialHairColor=Platinum&clotheType=CollarSweater&clotheColor=Gray02&eyeType=Side&eyebrowType=DefaultNatural&mouthType=Default&skinColor=DarkBrown' />
-        </div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <time>April 32 2-3pm</time>
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Kurt&hairColor=Brown&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Pizza&eyeType=EyeRoll&eyebrowType=AngryNatural&mouthType=Default&skinColor=Tanned' />
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Kurt&hairColor=Brown&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Pizza&eyeType=EyeRoll&eyebrowType=AngryNatural&mouthType=Default&skinColor=Tanned' />
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Kurt&hairColor=Brown&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Pizza&eyeType=EyeRoll&eyebrowType=AngryNatural&mouthType=Default&skinColor=Tanned' />
-          <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Kurt&hairColor=Brown&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Pizza&eyeType=EyeRoll&eyebrowType=AngryNatural&mouthType=Default&skinColor=Tanned' />
-        </div>
-        </div>
-      </li>
+      <% } %>
     </ul>
   </section>
+  <form method="POST" action='/<%= eventID %>'>
+    <input type='text' name='name' placeholder="name">
+    <input type='text' nmae='location' placeholder="Address">
+    <input type='submit'>
+  </form>
   <button class="corner-button">
     <span>I'M IN</span>
   </button>
