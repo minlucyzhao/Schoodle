@@ -62,9 +62,9 @@ app.get('/map', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
-  const event_from_time = req.body['from_time'].filter((iterm) => { return iterm !== '' }).join('');
-  const event_to_time = req.body['to_time'].filter((iterm) => { return iterm !== '' }).join('');
-  const event_date = req.body['date'].filter((iterm) => { return iterm !== '' }).join('');
+  const event_from_time = req.body['from_time'].filter((iterm) => { return iterm !== '' });
+  const event_to_time = req.body['to_time'].filter((iterm) => { return iterm !== '' });
+  const event_date = req.body['date'].filter((iterm) => { return iterm !== '' });
   const user_name = req.body.name;
   const user_email = req.body.email;
 
@@ -72,6 +72,15 @@ app.post('/db', (req, res) => {
   console.log("event to time", event_to_time);
   console.log("event date", event_date);
 
+  function getDate(date, time1, time2, eventID) {
+    let q = []
+    for (let i = 0; i < date.length; i++) {
+      q.push({
+        event_id: eventID, from_time: time1[i], to_time: time2[i], day: date[i]
+      })
+    }
+    return q
+  }
   knex('events')
     .insert([
       { title: event_title, description: event_description }
@@ -84,10 +93,12 @@ app.post('/db', (req, res) => {
       console.log(req.session)
       console.log('event_id is', returnedID)
       console.log('cookie is', req.session.eventID)
-      return knex('dates')
-        .insert([
-          { event_id: returnedID, from_time: event_from_time, to_time: event_to_time, day: toDate(event_date) }])
+      console.log('date we have is',getDate(event_date, event_from_time, event_to_time, returnedID))
 
+    
+
+      return knex('dates')
+      .insert(getDate(event_date, event_from_time, event_to_time, returnedID))
     })
     .then(() => {
       console.log('testing log');
