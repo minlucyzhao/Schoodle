@@ -1,0 +1,128 @@
+$primary-color: #fff;
+$background-color: linear-gradient(54deg, #9164ff, #8bfff4);
+$text-color: #3c3f64;
+body {
+  font: normal 16px/1.5 'Titillium Web', sans-serif;
+  background: $background-color;
+  color: $text-color;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+// STYLING
+.timeline {
+  ul {
+    li {
+      list-style-type: none;
+      position: relative;
+      width: 6px;
+      margin: 0 auto;
+      padding-top: 50px;
+      background: #fff;
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%) rotate(45deg);
+        width: 20px;
+        height: 20px;
+        z-index: 0;
+        background: #eee;
+      }
+      div {
+        position: relative;
+        bottom: 0;
+        width: 400px;
+        padding: 20px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        time {
+          position: absolute;
+          background: #f5af19;
+          width: 100px;
+          height: 60px;
+            left:-40px;
+          top: -45px;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          letter-spacing: 2px;
+        }
+     img{
+       width:30%;
+       height:30%;
+       
+     }
+      }
+      &:nth-of-type(odd) {
+        > div {
+          left: 45px;
+        }
+      }
+      &:nth-of-type(even) {
+        > div {
+          left: -439px;
+        }
+      }
+    }
+  }
+}
+
+$bg : #9871fc;
+$fg: #06c17f;
+$border-width: .5rem;
+$corner-size: 3rem;
+$dur: .3s;
+.corner-button {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: .02rem;
+  cursor: pointer;
+  background: transparent;
+  border: $border-width solid currentColor;
+  padding: 1.5rem 2rem;
+  font-size: 2.2rem;
+  color: $fg;
+  position: relative;
+  transition: color $dur;
+  
+  &:hover {
+    color: pink;
+    &::before { width: 0; }
+    &::after { height: 0; }
+  }
+  &:active {
+    border-width: $border-width / 2;
+  }
+  
+  //bit lame about the extra span. 
+  //it's to get the text to appear on top of the psewudo elements. is there a dom-less way to do it?
+  span {
+    position: relative;
+    z-index: 2;
+  }
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    background: $bg;
+    z-index: 1;
+    transition: all $dur;
+  }
+  //the 101% is because of a pixel rounding issue in firefox
+  &::before {
+    width: calc(100% - #{$corner-size});
+    height: calc(101% + #{$border-width * 2});
+    top: -$border-width;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &::after {
+    height: calc(100% - #{$corner-size});
+    width: calc(101% + #{$border-width * 2});
+    left: -$border-width;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

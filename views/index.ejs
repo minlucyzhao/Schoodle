@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   <!-- Jquery UI css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
   <!-- Jquery Insert-->
@@ -18,29 +20,95 @@
     crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js" integrity="sha256-xI/qyl9vpwWFOXz7+x/9WkG5j/SVnSw21viy8fWwbeE="
     crossorigin="anonymous"></script>
+  <!-- bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <!-- Javascript files -->
   <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/cssDesign.js"></script>
 </head>
 
 <body>
-  <h1>Hello World!</h1>
-  <form action="/db" method="POST" id='user_info'>
-    <!--TITLE & DESCRIPTION-->
-    <input name="title" placeholder="Your event title here" type="text">
-    <textarea name="description" id="description" placeholder="Your event description" cols="30" rows="10"></textarea>
+  <div id='gradient'>
+    <form action="/db" method="POST" id='user_info'>
+      <!--HOST NAME & EMAIL-->
+      <div class='box_container'>
+        <div class='box'>
+          <label>Name</label>
+          <input name="name" placeholder="Your name" type="text">
+        </div>
+        <div class='box'>
+          <label>Email</label>
+          <input name="email" placeholder="Your email" type="email">
+        </div>
+        <button class='btn btn-info btn-sm'><i class='glyphicon glyphicon-arrow-right'></i></button>
+      </div>
+      <!--TITLE & DESCRIPTION-->
+      <div class='box2'>
+        <label>Title</label><br>
+        <input name="title" placeholder="Your event title here" type="text"><br>
+        <label>Description</label>
+        <textarea name="description" id="description" placeholder="Your event description" cols="30" rows="10"></textarea>
+        <button class='right btn btn-info btn-sm'><i class='glyphicon glyphicon-arrow-right'></i></button>
+        <button class='left btn btn-info btn-sm'><i class='glyphicon glyphicon-arrow-left'></i></button>
+      </div>
+      <!--TIME SLOT PICKER-->
+      <div id='time-picker'>
+        <!-- <button id='new_date'>add date</button> -->
+        <label>Pick a Date</label>
+        <input name='date' type='text' class='date'><br>
+        <label>From</label>
+        <input name='from_time' type="text" class='time start'>
+        <label>To</label>
+        <input name='to_time' type='text' class='time end'>
+        <div id=''>
+          <span>
+            <label>Pick a Date</label>
+            <input name='date' type='text' class='date'><br>
+            <label>From</label>
+            <input name='from_time' type="text" class='time start'>
+            <label>To</label>
+            <input name='to_time' type='text' class='time end'>
+          </span>
+          <span>
+            <label>Pick a Date</label>
+            <input name='date' type='text' class='date'><br>
+            <label>From</label>
+            <input name='from_time' type="text" class='time start'>
+            <label>To</label>
+            <input name='to_time' type='text' class='time end'>
+          </span>
+          <span>
+            <label>Pick a Date</label>
+            <input name='date' type='text' class='date'><br>
+            <label>From</label>
+            <input name='from_time' type="text" class='time start'>
+            <label>To</label>
+            <input name='to_time' type='text' class='time end'>
+          </span>
+          <span>
+            <label>Pick a Date</label>
+            <input name='date' type='text' class='date'><br>
+            <label>From</label>
+            <input name='from_time' type="text" class='time start'>
+            <label>To</label>
+            <input name='to_time' type='text' class='time end'>
+          </span>
+          <span>
+            <label>Pick a Date</label>
+            <input name='date' type='text' class='date'><br>
+            <label>From</label>
+            <input name='from_time' type="text" class='time start'>
+            <label>To</label>
+            <input name='to_time' type='text' class='time end'>
+          </span>
+          <button id='new_date'></button>
+        </div>
+        <button class='left btn btn-info btn-sm'><i class='glyphicon glyphicon-arrow-left'></i></button>
+        <input value="Send my schgoogle!" type="submit" class='submit'>
+      </div>
 
-    <!--TIME SLOT PICKER-->
-    <p id='time-picker'>
-      <input name="date" type="text" class='date start'><br>
-      <input name="from_time" type="text" class='time start'><br>
-      <input name="to_time" type="text" class='time end'>
-    </p>
-    <!--HOST NAME & EMAIL-->
-    <input name="name" placeholder="Your name" type="text">
-    <input name="email" placeholder="Your email" type="email">
-
-    <input value="Send my schgoogle!" type="submit">
-  </form>
+    </form>
+  </div>
 </body>
 
 </html>
