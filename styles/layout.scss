@@ -17,3 +17,51 @@ body{
     display: none;
   }
 }
+.box_container{
+  position: absolute;
+  padding:40px;
+  width:25vw;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  .box{
+    width: 100%;
+    input{    
+      position: relative;
+      width:100%;
+      margin-bottom:30px;
+      font-size: 14px;
+      background: transparent;
+      -webkit-outline:none;
+      outline:none;
+      -webkit-border: none;
+      border: none;
+      border-bottom:1px solid #fff;
+    }  
+  } 
+}
+label
+{
+  position: relative;
+  color:#fff;
+  top:0px;
+  font-size: 18px;
+  transition: 0.5s;
+}
+
+
+
+
+
+
+.color{
+color:rgb(148, 221, 226);
+color:rgb(69, 117, 129);
+color:rgb(25, 74, 139);
+color:rgb(73, 53, 128);
+color:rgb(31, 28, 78);
+color:rgb(65, 48, 80);
+}
