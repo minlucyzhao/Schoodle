@@ -15,12 +15,9 @@ var step = 0;
 // next color right
 var colorIndices = [0, 1, 2, 3];
 
-//transition speed
+//color changing speed
 var gradientSpeed = 0.002;
 function updateGradient() {
-
-    // if ($ === undefined) return;
-
     var c0_0 = colors[colorIndices[0]];
     var c0_1 = colors[colorIndices[1]];
     var c1_0 = colors[colorIndices[2]];
@@ -43,18 +40,18 @@ function updateGradient() {
         background: "-moz-linear-gradient(left, " + color1 + " 0%, " + color2 + " 100%)"
     });
     step += gradientSpeed;
+    ///random changing color 0-1 or 2-3
     if (step >= 1) {
         step %= 1;
         colorIndices[0] = colorIndices[1];
         colorIndices[2] = colorIndices[3];
 
         //pick two new target color indices
-        //do not pick the same as the current one
         colorIndices[1] = (colorIndices[1] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
         colorIndices[3] = (colorIndices[3] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
 
     }
 }
-
+///run every 10ms
 setInterval(updateGradient, 10);
 //////

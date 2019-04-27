@@ -89,12 +89,12 @@ app.post('/db', (req, res) => {
       console.log(req.session)
       console.log('event_id is', returnedID)
       console.log('cookie is', req.session.eventID)
-      console.log('date we have is',getDate(event_date, event_from_time, event_to_time, returnedID))
+      console.log('date we have is', getDate(event_date, event_from_time, event_to_time, returnedID))
 
-    
+
 
       return knex('dates')
-      .insert(getDate(event_date, event_from_time, event_to_time, returnedID))
+        .insert(getDate(event_date, event_from_time, event_to_time, returnedID))
     })
     .then(() => {
       console.log('testing log');
@@ -113,6 +113,9 @@ app.get('/success', (req, res) => {
   res.render('success', { url: url })
 })
 
+app.get('/map', (req, res) => {
+  res.render('map');
+});
 app.get('/:hash', (req, res) => {
   const event = hashids.decode(req.params.hash)[0];
   console.log('event', event)
@@ -173,9 +176,6 @@ function toDate(dateStr) {
 //returns the latitude and longitude
 
 // ROUTE MAP
-app.get('/map', (req, res) => {
-  res.render("map");
-});
 
 app.post('/map', (req, res) => {
   // console.log("hello");
@@ -233,5 +233,17 @@ function geocode(location, callback) {
     .catch(function (error) {
       console.log(error);
     });
+}
+
+function getDate(date, time1, time2, eventID) {
+  let q = []
+  for (i = 0; i < date.length; i++) {
+    q.push({
+      event_id: eventID, from_time: time1[i], to_time: time2[i], day: toDate(event_date)[i]
+
+    })
+
+  }
+  return q
 }
 
