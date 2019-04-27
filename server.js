@@ -107,14 +107,13 @@ app.get('/:hash', (req, res) => {
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event)
     .then(function (result) {
-      console.log("result", result);
       return result;
-
     }).catch(function (err) {
       throw err;
     });
   res.render('meet', { event: event })
 })
+
 
 
 // function
