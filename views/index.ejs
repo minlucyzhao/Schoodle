@@ -20,16 +20,28 @@
     crossorigin="anonymous"></script>
   <!-- Javascript files -->
   <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/cssDesign.js"></script>
 </head>
 
 <body>
   <div id='gradient'>
-    <h1>Hello World!</h1>
     <form action="/db" method="POST" id='user_info'>
+      <!--HOST NAME & EMAIL-->
+      <div class='box_container'>
+        <div class='box'>
+          <label>Name</label>
+          <input name="name" placeholder="Your name" type="text">
+        </div>
+        <div class='box'>
+          <label>Email</label>
+          <input name="email" placeholder="Your email" type="email">
+        </div>
+      </div>
+      <div class='box2'>
+        <input name="title" placeholder="Your event title here" type="text">
+        <textarea name="description" id="description" placeholder="Your event description" cols="30" rows="10"></textarea>
+      </div>
       <!--TITLE & DESCRIPTION-->
-      <input name="title" placeholder="Your event title here" type="text">
-      <textarea name="description" id="description" placeholder="Your event description" cols="30" rows="10"></textarea>
-
       <!--TIME SLOT PICKER-->
       <p id='time-picker'>
         <button id='new_date'>add date</button>
@@ -37,9 +49,6 @@
         <input name='from_time' type="text" class='time start'><br>
         <input name='to_time' type='text' class='time end'>
       </p>
-      <!--HOST NAME & EMAIL-->
-      <input name="name" placeholder="Your name" type="text">
-      <input name="email" placeholder="Your email" type="email">
       <input value="Send my schgoogle!" type="submit">
     </form>
   </div>
