@@ -57,9 +57,9 @@ app.get('/', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
-  const event_from_time = req.body['from_time'];
-  const event_to_time = req.body['to_time'];
-  const event_date = req.body['date'];
+  const event_from_time = req.body['from_time'].filter((iterm) => { return iterm !== '' }).join('');
+  const event_to_time = req.body['to_time'].filter((iterm) => { return iterm !== '' }).join('');
+  const event_date = req.body['date'].filter((iterm) => { return iterm !== '' }).join('');
   const user_name = req.body.name;
   const user_email = req.body.email;
 
