@@ -13,7 +13,6 @@ const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
-<<<<<<< HEAD
 var cookieSession = require('cookie-session')
 app.use(cookieSession({
   name: 'session',
@@ -22,9 +21,7 @@ app.use(cookieSession({
 }))
 var Hashids = require('hashids');
 var hashids = new Hashids('', 10);
-=======
 const axios = require('axios');
->>>>>>> feature-googleapi
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -61,9 +58,9 @@ app.get('/', (req, res) => {
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
   const event_description = req.body.description;
-  const event_from_time = req.body['from_time'];
-  const event_to_time = req.body['to_time'];
-  const event_date = req.body['date'];
+  const event_from_time = req.body['from_time'].filter((iterm) => { return iterm !== '' }).join('');
+  const event_to_time = req.body['to_time'].filter((iterm) => { return iterm !== '' }).join('');
+  const event_date = req.body['date'].filter((iterm) => { return iterm !== '' }).join('');
   const user_name = req.body.name;
   const user_email = req.body.email;
 
@@ -120,8 +117,7 @@ app.get('/:hash', (req, res) => {
 })
 
 
-
-//function
+// function
 // function toDate(dateStr) {
 //   var from = dateStr.split("/")
 //   var f = [from[2], from[0], from[1]].join('-')
@@ -151,33 +147,11 @@ app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
-
-
 //function to convert date to proper format for psql
 function toDate(dateStr) {
   var from = dateStr.split("/")
   var f = [from[2], from[0], from[1]].join('-')
   return f
-<<<<<<< HEAD
-}
-=======
-}
-function toTime(time) {
-  var hours = Number(time.match(/^(\d+)/)[1]);
-  console.log(hours)
-  var minutes = Number(time.match(/:(\d+)/)[1]);
-  console.log(minutes)
-  var AMPM = time.match(/\s(.*)$/)[1];
-  console.log(AMPM)
-  if (AMPM === "pm" && hours < 12) { hours = hours + 12 }
-  if (AMPM === "am" && hours == 12) { hours = hours - 12 }
-  var sHours = hours.toString();
-  console.log(sHours)
-  var sMinutes = minutes.toString();
-  console.log(sMinutes)
-  if (hours < 10) sHours = "0" + sHours;
-  if (minutes < 10) sMinutes = "0" + sMinutes;
-  return sHours + ":" + sMinutes
 }
 
 //LUCY ADDED HERE//
@@ -189,51 +163,50 @@ function toTime(time) {
 //returns the latitude and longitude
 
 // ROUTE MAP
-app.get('/map', (req,res) => {
+app.get('/map', (req, res) => {
   res.render("map");
 });
 
-app.post('/map', (req,res) => {
+app.post('/map', (req, res) => {
   // console.log("hello");
   console.log(req.body.address);
-  let codeArray = geocode(req.body.address, function(mapData) {
+  let codeArray = geocode(req.body.address, function (mapData) {
 
-  const address = mapData[0];
-  const latitude = mapData[1];
-  const longitude = mapData[2];
-  // console.log("yes, it worked!")
-  // console.log('longitude', longitude);
-  // const event_id;
-  // const user_id = 123; //fix later once integrate with form
+    const address = mapData[0];
+    const latitude = mapData[1];
+    const longitude = mapData[2];
+    // console.log("yes, it worked!")
+    // console.log('longitude', longitude);
+    // const event_id;
+    // const user_id = 123; //fix later once integrate with form
 
-  // console.log(userAddress);
-  knex('locations')
-    .insert({
-      address: address, 
-      longitude: longitude,
-      latitude: latitude,
-    }, ['address', 'longitude', 'latitude'])
+    // console.log(userAddress);
+    knex('locations')
+      .insert({
+        address: address,
+        longitude: longitude,
+        latitude: latitude,
+      }, ['address', 'longitude', 'latitude'])
       .then((results) => {
         console.log('address', address)
         console.log('latitude', latitude)
         console.log('longitude', longitude)
-        alert("it works!");
       })
-  // res.render("map");
+    // res.render("map");
   });
 });
 
 
-  function geocode(location, callback) {
-    let codeArray = [];
-    // let location = '22 Main st Boston MA';
-    axios.get('https://maps.googleapis.com/maps/api/geocode/json?', {
-      params: {
+function geocode(location, callback) {
+  let codeArray = [];
+  // let location = '22 Main st Boston MA';
+  axios.get('https://maps.googleapis.com/maps/api/geocode/json?', {
+    params: {
       address: location,
-      key:'AIzaSyDbhjMMS01YtWCehERYTwe912Q_2YNJuxI'
-      }
-    })
-    .then(function(response){
+      key: 'AIzaSyDbhjMMS01YtWCehERYTwe912Q_2YNJuxI'
+    }
+  })
+    .then(function (response) {
       let formattedAddress = response.data.results[0].formatted_address;
       codeArray.push(formattedAddress);
       let latitude = response.data.results[0].geometry.location.lat;
@@ -247,9 +220,8 @@ app.post('/map', (req,res) => {
       // console.log('longitude', longitude);
       callback(codeArray);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
-  }
+}
 
->>>>>>> feature-googleapi
