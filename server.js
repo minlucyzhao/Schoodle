@@ -22,6 +22,7 @@ app.use(cookieSession({
 var Hashids = require('hashids');
 var hashids = new Hashids('', 10);
 const axios = require('axios');
+var moment = require('moment');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -90,9 +91,6 @@ app.post('/db', (req, res) => {
       console.log('event_id is', returnedID)
       console.log('cookie is', req.session.eventID)
       console.log('date we have is', getDate(event_date, event_from_time, event_to_time, returnedID))
-
-
-
       return knex('dates')
         .insert(getDate(event_date, event_from_time, event_to_time, returnedID))
     })
@@ -119,54 +117,15 @@ app.get('/map', (req, res) => {
 app.get('/:hash', (req, res) => {
   const event = hashids.decode(req.params.hash)[0];
   console.log('event', event)
-  knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event)
-    .then(function (result) {
-      return result;
-    }).catch(function (err) {
-      throw err;
-    });
-  res.render('meet', { event: event })
+  knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
+    console.log('result is ', result)
+    res.render('meet', { pickDate: result, eventID: event })
+  })
+
 })
 
 
-
-// function
-// function toDate(dateStr) {
-//   var from = dateStr.split("/")
-//   var f = [from[2], from[0], from[1]].join('-')
-
-
-//   return f
-// }
-// function toTime(time) {
-//   var hours = Number(time.match(/^(\d+)/)[1]);
-//   console.log(hours)
-//   var minutes = Number(time.match(/:(\d+)/)[1]);
-//   console.log(minutes)
-//   var AMPM = time.match(/\s(.*)$/)[1];
-//   console.log(AMPM)
-//   if (AMPM === "pm" && hours < 12) { hours = hours + 12 }
-//   if (AMPM === "am" && hours == 12) { hours = hours - 12 }
-//   var sHours = hours.toString();
-//   console.log(sHours)
-//   var sMinutes = minutes.toString();
-//   console.log(sMinutes)
-//   if (hours < 10) sHours = "0" + sHours;
-//   if (minutes < 10) sMinutes = "0" + sMinutes;
-//   return sHours + ":" + sMinutes
-// }
-
-app.listen(PORT, () => {
-  console.log("Example app listening on port " + PORT);
-});
-
 //function to convert date to proper format for psql
-function toDate(dateStr) {
-  var from = dateStr.split("/")
-  var f = [from[2], from[0], from[1]].join('-')
-  return f
-}
-
 //LUCY ADDED HERE//
 
 // POST request and takes string and converts into latitude and longitude
@@ -177,10 +136,12 @@ function toDate(dateStr) {
 
 // ROUTE MAP
 
-app.post('/map', (req, res) => {
+app.post('/:hasd', (req, res) => {
+  const event = hashids.decode(req.params.hash)[0];
+  const { location, name } = req.body;
   // console.log("hello");
   console.log(req.body.address);
-  let codeArray = geocode(req.body.address, function (mapData) {
+  let codeArray = geocode(location, function (mapData) {
 
     const address = mapData[0];
     const latitude = mapData[1];
@@ -193,12 +154,12 @@ app.post('/map', (req, res) => {
     // console.log(userAddress);
     knex('locations')
       .insert({
-        address: address,
+        address: location,
         longitude: longitude,
         latitude: latitude,
       }, ['address', 'longitude', 'latitude'])
       .then((results) => {
-        console.log('address', address)
+        console.log('address', location)
         console.log('latitude', latitude)
         console.log('longitude', longitude)
       })
@@ -235,15 +196,6 @@ function geocode(location, callback) {
     });
 }
 
-function getDate(date, time1, time2, eventID) {
-  let q = []
-  for (i = 0; i < date.length; i++) {
-    q.push({
-      event_id: eventID, from_time: time1[i], to_time: time2[i], day: toDate(event_date)[i]
-
-    })
-
-  }
-  return q
-}
-
+app.listen(PORT, () => {
+  console.log("Example app listening on port " + PORT);
+});
