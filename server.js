@@ -116,15 +116,10 @@ app.get('/success', (req, res) => {
 })
 
 app.get('/:hash', (req, res) => {
-<<<<<<< HEAD
   const { times, name, location } = req.body
   const event = hashids.decode(req.params.hash)[0];
   const emptyName = []
   emptyName.push(name)
-=======
-  // const event = hashids.decode(req.params.hash)[0];
-  const event = 1;
->>>>>>> feature-mergefunctions
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
     let date = []

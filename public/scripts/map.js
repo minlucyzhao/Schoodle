@@ -7,7 +7,7 @@
     map = new google.maps.Map(
       document.getElementById('map'), {
         center: { lat: 43.6584, lng: -79.3814 },
-        zoom: 11
+        zoom: 14
       });
     addLocations();
   }
@@ -69,10 +69,10 @@ function renderCoordinates(coordinates) {
       event.preventDefault();
       let newAddress = $address.val(); //.serialize() or JSON.stringify()
       // console.log(newAddress);
-      let actionstr = $('$').attr('action');
+      // let actionstr = $('$#h').attr('action');
       $.ajax({
         type: 'POST',
-        url: actionstr,
+        url: '/map',
         data: { address: newAddress },
         // data: {
         //   newAddress
