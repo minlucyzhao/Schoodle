@@ -54,7 +54,7 @@ function renderCoordinates(coordinates) {
       // addMarker({lat: 43.6532, lng: -79.3832});
     }
   }
-  
+
   //creates the new point on google map
   // $("#tweets-container").empty();
   // for (let tweet of tweets) {
@@ -71,7 +71,7 @@ function renderCoordinates(coordinates) {
       // console.log(newAddress);
       $.ajax({
         type: 'POST',
-        url: '/map',
+        url: '/:hash',
         data: { address: newAddress },
         // data: {
         //   newAddress
