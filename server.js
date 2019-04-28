@@ -68,8 +68,8 @@ app.post('/db', (req, res) => {
   console.log("event from time:", event_from_time);
   console.log("event to time", event_to_time);
   console.log("event date", event_date);
-
-  function getDate(date, time1, time2, eventID) {
+  ////functions
+  function getDates(date, time1, time2, eventID) {
     let q = []
     for (let i = 0; i < date.length; i++) {
       q.push({
@@ -90,9 +90,9 @@ app.post('/db', (req, res) => {
       console.log(req.session)
       console.log('event_id is', returnedID)
       console.log('cookie is', req.session.eventID)
-      console.log('date we have is', getDate(event_date, event_from_time, event_to_time, returnedID))
+      console.log('date we have is', getDates(event_date, event_from_time, event_to_time, returnedID))
       return knex('dates')
-        .insert(getDate(event_date, event_from_time, event_to_time, returnedID))
+        .insert(getDates(event_date, event_from_time, event_to_time, returnedID))
     })
     .then(() => {
       console.log('testing log');
@@ -118,8 +118,23 @@ app.get('/:hash', (req, res) => {
   const event = hashids.decode(req.params.hash)[0];
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
-    console.log('result is ', result)
-    res.render('meet', { pickDate: result, eventID: event })
+    const date = []
+    const timef = []
+    const timet = []
+    result.forEach(item => {
+      let newday = new Date(item.day)
+      date.push(dateGet(newday))
+      let newtimef = item.from_time
+      timef.push(newtimef[0] + newtimef[2] + newtimef[3] + newtimef[4])
+      let newtimet = item.to_time
+      timet.push(newtimet[0] + newtimet[2] + newtimet[3] + newtimet[4])
+    })
+    console.log(date)
+    console.log(timef)
+    console.log(timet)
+
+
+    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event })
   })
 
 })
@@ -194,6 +209,29 @@ function geocode(location, callback) {
     .catch(function (error) {
       console.log(error);
     });
+}
+//////Date function
+function dateGet(today) {
+  const dd = today.getDate();
+  const mm = today.getMonth()
+  const yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+  const month = [];
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+  return `${month[mm]} ${dd} ${yyyy}`
 }
 
 app.listen(PORT, () => {

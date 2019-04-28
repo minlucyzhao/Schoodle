@@ -26,13 +26,13 @@
 <body>
   <section class="timeline">
     <ul>
-      <% for(let item of pickDate) { %>
+      <% for(i=0;i< day.length;i++) { %>
       <li>
         <div>
           <time>
-            <%= item.day %> from
-            <%= item.from_time %> to
-            <%= item.to_time %></time>
+            <%= day[i] %>
+            <%= timef[i] %> to
+            <%=timet[i] %></time>
         </div>
       </li>
       <% } %>
