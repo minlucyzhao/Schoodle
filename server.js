@@ -116,10 +116,11 @@ app.get('/success', (req, res) => {
 })
 
 app.get('/:hash', (req, res) => {
-  const { times, name, location } = req.body
   const event = hashids.decode(req.params.hash)[0];
+  const hash = req.params.hash
+  let time = localDB[67].time
   const emptyName = []
-  emptyName.push(name)
+  const src = 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Blonde&clotheType=BlazerSweater&clotheColor=Gray02&eyeType=Close&eyebrowType=Default&mouthType=Grimace&skinColor=DarkBrown';
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
     let date = []

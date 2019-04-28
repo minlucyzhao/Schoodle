@@ -61,6 +61,10 @@ body {
   left: 45px;
 }
 
+.timeline ul li:nth-of-type(odd) > div {
+  left: 45px;
+}
+
 .corner-button {
   font-family: 'Lato', sans-serif;
   letter-spacing: .02rem;
