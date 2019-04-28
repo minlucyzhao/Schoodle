@@ -69,9 +69,10 @@ function renderCoordinates(coordinates) {
       event.preventDefault();
       let newAddress = $address.val(); //.serialize() or JSON.stringify()
       // console.log(newAddress);
+      let actionstr = $('$').attr('action');
       $.ajax({
         type: 'POST',
-        url: '/:hash',
+        url: actionstr,
         data: { address: newAddress },
         // data: {
         //   newAddress

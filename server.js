@@ -116,7 +116,8 @@ app.get('/success', (req, res) => {
 })
 
 app.get('/:hash', (req, res) => {
-  const event = hashids.decode(req.params.hash)[0];
+  // const event = hashids.decode(req.params.hash)[0];
+  const event = 1;
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
     console.log('result is ', result)
@@ -173,7 +174,7 @@ app.post('/map', (req, res) => {
   let codeArray = geocode(req.body.address, function (mapData) {
 // ROUTE MAP
 
-// app.post('/:hasd', (req, res) => {
+// app.post('/:hash', (req, res) => {
 //   const event = hashids.decode(req.params.hash)[0];
 //   const { location, name } = req.body;
   // console.log("hello");
@@ -194,8 +195,8 @@ app.post('/map', (req, res) => {
         address: address,
         longitude: longitude,
         latitude: latitude,
-        user_id: 3,
-        event_id: 1
+        user_id: 3, //NEED TO FIX
+        event_id: 1 //NEED TO FIX
       }, ['address', 'longitude', 'latitude', 'user_id', 'event_id'])
       .then((results) => {
         console.log('address', address)
