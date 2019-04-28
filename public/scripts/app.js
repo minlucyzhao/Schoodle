@@ -29,6 +29,7 @@ $(document).ready(() => {
     $('#time-picker').slideDown()
     $('.box2').show()
   })
+  ajaxPost()
 })
 
 function timepicker() {
@@ -111,21 +112,36 @@ $(function () {
   })
 });
 
-// const getCoordinates = function() {
-//   $.ajax({
-//       type:'GET',
-//       url: '/map',
-//       datatype: 'json', //what does this do? convert the file into json directly?
-//       success: renderCoordinates //this is a callback
-//   })
-// }
+function ajaxPost() {
+  $('#userJoin').submit(function (e) {
+    console.log("POST")
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+    let form = $(this);
+    let url = form.attr('action');
+    let name = $("#userJoin input[name='name']").val();
+    let location = $("#userJoin input[name='location']").val();
+    let time = $("#userJoin input[name='checkbox']");
+    console.log('name is', name)
+    console.log('location is', location)
+    console.log('time is time', time)
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: { name, location, time },
+    }).then(
+      () => {
+        let src = 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Blonde&clotheType=BlazerSweater&clotheColor=Gray02&eyeType=Close&eyebrowType=Default&mouthType=Grimace&skinColor=DarkBrown';
+        let $img = $('<img>').attr('src', src)
+        $('.timeline div').append($img)
+        let $username = name;
+        $('.timeline div').append(`<span>${$username}</span>`)
+      }
 
-// function renderCoordinates(coordinates) {
-//   //creates the new point on google map
-//   $("#tweets-container").empty();
-//   for (let tweet of tweets) {
-//     $("#tweets-container").prepend(createTweetElement(tweet));
-//   } 
-// }
 
-//-----------------
+
+    )
+  }
+
+  )
+}
+

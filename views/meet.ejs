@@ -26,25 +26,26 @@
 <body>
   <section class="timeline">
     <ul>
-      <% for(i=0;i< day.length;i++) { %>
-      <li>
-        <div>
-          <time>
+      <form id='userJoin' method="POST" action='/db'>
+        <% for(i=0;i< day.length;i++) { %>
+        <li>
+          <div>
             <%= day[i] %>
             <%= timef[i] %> to
-            <%=timet[i] %></time>
-        </div>
-      </li>
-      <% } %>
+            <%=timet[i] %>
+          </div>
+          <input type='checkbox' form='userJoin' value='<%= i %>' name='checkbox'>
+        </li>
+        <% } %>
+        <input type='text' name='location' placeholder="Address">
+        <input type='text' name='name' placeholder="name" form='userJoin'>
+        <input type='submit' form='userJoin'>
+      </form>
     </ul>
   </section>
-  <form method="POST" action='/<%= eventID %>'>
-    <input type='text' name='name' placeholder="name">
-    <input type='text' nmae='location' placeholder="Address">
-    <input type='submit'>
-  </form>
   <button class="corner-button">
     <span>I'M IN</span>
+  </button>
   </button>
 </body>
 

@@ -115,12 +115,15 @@ app.get('/map', (req, res) => {
   res.render('map');
 });
 app.get('/:hash', (req, res) => {
+  const { times, name, location } = req.body
   const event = hashids.decode(req.params.hash)[0];
+  const emptyName = []
+  emptyName.push(name)
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
-    const date = []
-    const timef = []
-    const timet = []
+    let date = []
+    let timef = []
+    let timet = []
     result.forEach(item => {
       let newday = new Date(item.day)
       date.push(dateGet(newday))
@@ -129,11 +132,6 @@ app.get('/:hash', (req, res) => {
       let newtimet = item.to_time
       timet.push(newtimet[0] + newtimet[2] + newtimet[3] + newtimet[4])
     })
-    console.log(date)
-    console.log(timef)
-    console.log(timet)
-
-
     res.render('meet', { day: date, timef: timef, timet: timet, eventID: event })
   })
 
@@ -212,13 +210,13 @@ function geocode(location, callback) {
 }
 //////Date function
 function dateGet(today) {
-  const dd = today.getDate();
-  const mm = today.getMonth()
-  const yyyy = today.getFullYear();
+  let dd = today.getDate();
+  let mm = today.getMonth()
+  let yyyy = today.getFullYear();
   if (dd < 10) {
     dd = '0' + dd;
   }
-  const month = [];
+  let month = [];
   month[0] = "January";
   month[1] = "February";
   month[2] = "March";
