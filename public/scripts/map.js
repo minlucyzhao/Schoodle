@@ -51,10 +51,10 @@ function renderCoordinates(coordinates) {
       let lngPin = coordinates[item].longitude;
       // alert(typeof(lngPin));
       addMarker({ lat: Number(latPin), lng: Number(lngPin) });
-
       // addMarker({lat: 43.6532, lng: -79.3832});
     }
   }
+  
   //creates the new point on google map
   // $("#tweets-container").empty();
   // for (let tweet of tweets) {
@@ -65,9 +65,8 @@ function renderCoordinates(coordinates) {
     let $button = $("#set-address");
     let $address = $("#input-address");
     $button.on('click', function (event) {
-      console.log("hello");
+      console.log("app.post ran");
       event.preventDefault();
-      console.log("hello2");
       let newAddress = $address.val(); //.serialize() or JSON.stringify()
       // console.log(newAddress);
       $.ajax({
