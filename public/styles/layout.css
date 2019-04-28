@@ -57,7 +57,7 @@ body {
   height: 30%;
 }
 
-.timeline ul li:nth-of-type(odd) > div {
+.timeline ul li:nth-of-type(even) > div {
   left: 45px;
 }
 

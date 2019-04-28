@@ -34,13 +34,20 @@
         <% for(i=0;i< day.length;i++) { %>
         <li>
           <div>
-            <%= day[i] %>
-            <%= timef[i] %> to
-            <%=timet[i] %>
+            <span>
+              <%= day[i] %>
+              <%= timef[i] %> to
+              <%=timet[i] %>
+            </span>
+            <input type='checkbox' value='<%= i %>' name='<%= i %>'>
           </div>
-          <input type='checkbox' form='userJoin' value='<%= i %>' name='checkbox'>
+          <span>
+            <% if( time.includes(i) ){ %>
+            <img src=<%=src %>>
+            <%}%>
+          </span>
+          <% } %>
         </li>
-        <% } %>
         <input type='text' name='location' placeholder="Address">
         <input type='text' name='name' placeholder="name" form='userJoin'>
         <input type='submit' form='userJoin'>
@@ -52,39 +59,15 @@
   </button> -->
   <table style="width:100%;">
     <tr>
-      <td style= "table-layout: fixed; width: 50%;">
-        <section class="timeline">
-            <ul>
-              <% for(let item of pickDate) { %>
-              <li>
-                <div>
-                  <time>
-                    <%= item.day %> from
-                    <%= item.from_time %> to
-                    <%= item.to_time %></time>
-                </div>
-              </li>
-              <% } %>
-            </ul>
-          </section>
-          <form method="POST" action='/<%= eventID %>'>
-            <input type='text' name='name' placeholder="name">
-            <input type='text' id='input-address' placeholder="Address">
-            <input type='submit'>
-          </form>
-          <button class="corner-button">
-            <span>I'M IN</span>
-          </button>
-      </td>
-      <td style= "table-layout: fixed; width: 50%;">
+      <td style="table-layout: fixed; width: 50%;">
         <div id="map"></div>
       </td>
     </tr>
   </table>
 
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbhjMMS01YtWCehERYTwe912Q_2YNJuxI&callback=initMap">
-    </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbhjMMS01YtWCehERYTwe912Q_2YNJuxI&callback=initMap">
+
+  </script>
 </body>
 
 </html>

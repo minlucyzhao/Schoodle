@@ -133,7 +133,7 @@ app.get('/:hash', (req, res) => {
       let newtimet = item.to_time
       timet.push(newtimet[0] + newtimet[2] + newtimet[3] + newtimet[4])
     })
-    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event })
+    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event, time: time, hash: hash, src: src })
   })
 })
 
@@ -141,21 +141,21 @@ app.get('/:hash', (req, res) => {
 //---------------------------------------------
 //GET EXISTING MAP PINS
 //---------------------------------------------
-app.get('/map/position', (req,res) => {
+app.get('/map/position', (req, res) => {
   console.log("hello from app.get request");
   const event = 1;
   // let pins = [];
   knex('locations')
     .join('users', 'users.id', 'locations.user_id')
-    .select('name','address','latitude', 'longitude')
+    .select('name', 'address', 'latitude', 'longitude')
     .where('event_id', event)
-    .then(function(result) {
+    .then(function (result) {
       console.log('result app.get(map)', result);
       // pins.push({longitude:'longitude',latitude:'latitude', user_id:'user_id'});
       // console.log('pins', pins);
       // return pins;
       res.json(result);
-  })
+    })
 })
 //---------------------------------------------
 
@@ -184,14 +184,14 @@ app.post('/map', (req, res) => {
   console.log(req.body.address);
   // const event = hashids.decode(req.params.hash)[0];
   let codeArray = geocode(req.body.address, function (mapData) {
-// ROUTE MAP
+    // ROUTE MAP
 
-// app.post('/:hash', (req, res) => {
-//   const event = hashids.decode(req.params.hash)[0];
-//   const { location, name } = req.body;
-  // console.log("hello");
-  // console.log(req.body.address);
-  // let codeArray = geocode(location, function (mapData) {
+    // app.post('/:hash', (req, res) => {
+    //   const event = hashids.decode(req.params.hash)[0];
+    //   const { location, name } = req.body;
+    // console.log("hello");
+    // console.log(req.body.address);
+    // let codeArray = geocode(location, function (mapData) {
 
     const address = mapData[0];
     const latitude = mapData[1];
@@ -215,7 +215,7 @@ app.post('/map', (req, res) => {
         console.log('latitude', latitude)
         console.log('longitude', longitude)
       })
-    res.json({"success": 0});
+    res.json({ "success": 0 });
   });
 });
 
@@ -270,7 +270,17 @@ function dateGet(today) {
   month[11] = "December";
   return `${month[mm]} ${dd} ${yyyy}`
 }
+app.post('/:hash', (req, res) => {
 
+})
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+
+const localDB = {
+  67: {
+    time: [1, 2],
+    name: 'yiyao'
+  }
+}
