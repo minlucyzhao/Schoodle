@@ -59,6 +59,11 @@ body {
        
      }
       }
+      &:nth-of-type(even) {
+        > div {
+          left: 45px;
+        }
+      }
       &:nth-of-type(odd) {
         > div {
           left: 45px;

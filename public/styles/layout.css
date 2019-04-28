@@ -10,6 +10,7 @@ body {
   list-style-type: none;
   position: relative;
   width: 6px;
+  height: 30vh;
   margin: 0 auto;
   padding-top: 50px;
   background: #fff;
@@ -23,14 +24,14 @@ body {
   transform: translateX(-50%) rotate(45deg);
   width: 20px;
   height: 20px;
-  z-index: 0;
   background: #eee;
 }
 
 .timeline ul li div {
-  position: relative;
+  position: absolute;
   bottom: 0;
   width: 400px;
+  height: 100%;
   padding: 20px;
   border-radius: 5px;
   display: flex;
@@ -56,12 +57,12 @@ body {
   height: 30%;
 }
 
-.timeline ul li:nth-of-type(odd) > div {
+.timeline ul li:nth-of-type(even) > div {
   left: 45px;
 }
 
-.timeline ul li:nth-of-type(even) > div {
-  left: -439px;
+.timeline ul li:nth-of-type(odd) > div {
+  left: 45px;
 }
 
 .corner-button {
