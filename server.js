@@ -54,6 +54,10 @@ app.get('/', (req, res) => {
   res.render("index");
 });
 
+// ROUTE MAP
+app.get('/map', (req, res) => {
+  res.render("map");
+});
 
 //POSTing form on index.ejs
 app.post('/db', (req, res) => {
@@ -111,14 +115,16 @@ app.get('/success', (req, res) => {
   res.render('success', { url: url })
 })
 
-app.get('/map', (req, res) => {
-  res.render('map');
-});
 app.get('/:hash', (req, res) => {
+<<<<<<< HEAD
   const { times, name, location } = req.body
   const event = hashids.decode(req.params.hash)[0];
   const emptyName = []
   emptyName.push(name)
+=======
+  // const event = hashids.decode(req.params.hash)[0];
+  const event = 1;
+>>>>>>> feature-mergefunctions
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
     let date = []
@@ -134,9 +140,40 @@ app.get('/:hash', (req, res) => {
     })
     res.render('meet', { day: date, timef: timef, timet: timet, eventID: event })
   })
-
 })
 
+
+//---------------------------------------------
+//GET EXISTING MAP PINS
+//---------------------------------------------
+app.get('/map/position', (req,res) => {
+  console.log("hello from app.get request");
+  const event = 1;
+  // let pins = [];
+  knex('locations')
+    .join('users', 'users.id', 'locations.user_id')
+    .select('name','address','latitude', 'longitude')
+    .where('event_id', event)
+    .then(function(result) {
+      console.log('result app.get(map)', result);
+      // pins.push({longitude:'longitude',latitude:'latitude', user_id:'user_id'});
+      // console.log('pins', pins);
+      // return pins;
+      res.json(result);
+  })
+})
+//---------------------------------------------
+
+
+//---------------------------------------------
+//CALCULATE CENTER OF PINS
+//---------------------------------------------
+function calculateCenter(pins) {
+  //let longitudeCenter = (max(longitude) - min(longitude)) / 2;
+  //let latitudeCenter = (max(latitude) - min(latitude) / 2;
+  //addMarker({ lat: latitudeCenter, lng: longitudeCenter }); 
+}
+//---------------------------------------------
 
 //function to convert date to proper format for psql
 //LUCY ADDED HERE//
@@ -147,14 +184,19 @@ app.get('/:hash', (req, res) => {
 // GET request, query the Location Table based on event_id and user_id
 //returns the latitude and longitude
 
+app.post('/map', (req, res) => {
+  console.log("hello");
+  console.log(req.body.address);
+  // const event = hashids.decode(req.params.hash)[0];
+  let codeArray = geocode(req.body.address, function (mapData) {
 // ROUTE MAP
 
-app.post('/:hasd', (req, res) => {
-  const event = hashids.decode(req.params.hash)[0];
-  const { location, name } = req.body;
+// app.post('/:hash', (req, res) => {
+//   const event = hashids.decode(req.params.hash)[0];
+//   const { location, name } = req.body;
   // console.log("hello");
-  console.log(req.body.address);
-  let codeArray = geocode(location, function (mapData) {
+  // console.log(req.body.address);
+  // let codeArray = geocode(location, function (mapData) {
 
     const address = mapData[0];
     const latitude = mapData[1];
@@ -167,16 +209,18 @@ app.post('/:hasd', (req, res) => {
     // console.log(userAddress);
     knex('locations')
       .insert({
-        address: location,
+        address: address,
         longitude: longitude,
         latitude: latitude,
-      }, ['address', 'longitude', 'latitude'])
+        user_id: 3, //NEED TO FIX
+        event_id: 1 //NEED TO FIX
+      }, ['address', 'longitude', 'latitude', 'user_id', 'event_id'])
       .then((results) => {
-        console.log('address', location)
+        console.log('address', address)
         console.log('latitude', latitude)
         console.log('longitude', longitude)
       })
-    // res.render("map");
+    res.json({"success": 0});
   });
 });
 

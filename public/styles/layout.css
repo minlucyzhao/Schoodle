@@ -1,0 +1,256 @@
+body {
+  font: normal 16px/1.5 'Titillium Web', sans-serif;
+  background: linear-gradient(54deg, #9164ff, #8bfff4);
+  color: #3c3f64;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+.timeline ul li {
+  list-style-type: none;
+  position: relative;
+  width: 6px;
+  margin: 0 auto;
+  padding-top: 50px;
+  background: #fff;
+}
+
+.timeline ul li::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
+  z-index: 0;
+  background: #eee;
+}
+
+.timeline ul li div {
+  position: relative;
+  bottom: 0;
+  width: 400px;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.timeline ul li div time {
+  position: absolute;
+  background: #f5af19;
+  width: 100px;
+  height: 60px;
+  left: -40px;
+  top: -45px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 2px;
+}
+
+.timeline ul li div img {
+  width: 30%;
+  height: 30%;
+}
+
+.timeline ul li:nth-of-type(odd) > div {
+  left: 45px;
+}
+
+.timeline ul li:nth-of-type(even) > div {
+  left: -439px;
+}
+
+.corner-button {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: .02rem;
+  cursor: pointer;
+  background: transparent;
+  border: 0.5rem solid currentColor;
+  padding: 1.5rem 2rem;
+  font-size: 2.2rem;
+  color: #06c17f;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.corner-button:hover {
+  color: pink;
+}
+
+.corner-button:hover::before {
+  width: 0;
+}
+
+.corner-button:hover::after {
+  height: 0;
+}
+
+.corner-button:active {
+  border-width: 0.25rem;
+}
+
+.corner-button span {
+  position: relative;
+  z-index: 2;
+}
+
+.corner-button::before, .corner-button::after {
+  content: '';
+  position: absolute;
+  background: #9871fc;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.corner-button::before {
+  width: calc(100% - 3rem);
+  height: calc(101% + 1rem);
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.corner-button::after {
+  height: calc(100% - 3rem);
+  width: calc(101% + 1rem);
+  left: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+body {
+  background-color: #000000;
+  padding: 0px;
+  margin: 0px;
+}
+
+#gradient {
+  width: 100%;
+  height: 800px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#time-picker {
+  position: absolute;
+  padding: 40px;
+  width: 25vw;
+  top: 50%;
+  left: 50%;
+  min-height: 200px;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  display: none;
+}
+
+#time-picker button {
+  float: left;
+}
+
+#time-picker .submit {
+  float: right;
+}
+
+#time-picker span {
+  display: none;
+}
+
+#time-picker label {
+  color: #fff;
+}
+
+.box_container {
+  position: absolute;
+  padding: 40px;
+  width: 25vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+
+.box_container .box {
+  width: 100%;
+}
+
+.box_container .box input {
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+  font-size: 14px;
+  background: transparent;
+  -webkit-outline: none;
+  outline: none;
+  -webkit-border: none;
+  border: none;
+  border-bottom: 1px solid #fff;
+}
+
+.box_container label {
+  position: relative;
+  color: #fff;
+  top: 0px;
+  font-size: 18px;
+  transition: 0.5s;
+}
+
+.box_container button {
+  float: right;
+}
+
+.box2 {
+  display: none;
+  position: absolute;
+  padding: 40px;
+  width: 25vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+
+.box2 input {
+  position: relative;
+  margin: auto;
+  padding: 10px;
+  max-width: 100%;
+}
+
+.box2 textarea {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+}
+
+.box2 label {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #fff;
+}
+
+.box2 .right {
+  float: right;
+}
+
+.box2 .left {
+  float: left;
+}
+
+.color {
+  color: #94dde2;
+  color: #457581;
+  color: #194a8b;
+  color: #493580;
+  color: #1f1c4e;
+  color: #413050;
+}

@@ -19,7 +19,7 @@
   <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js" integrity="sha256-xI/qyl9vpwWFOXz7+x/9WkG5j/SVnSw21viy8fWwbeE="
     crossorigin="anonymous"></script>
   <!-- Javascript files -->
-  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/map.js"></script>
   <!-- Map Styling -->
   <link rel="stylesheet" href="/styles/map.css" type="text/css" />
 </head>
@@ -29,6 +29,7 @@
     <form class="address-form" method="POST" action="/map">
         <input id="input-address" type="text" placeholder="Where you coming from?">
         <button id="set-address" type="submit">Set My Address</button>
+        <!-- <button id="delete-address" type="button" onclick="deleteMarkers()">Delete All Markers</button> -->
     </form>
     <!--The div element for the map -->
     <div id="map"></div>

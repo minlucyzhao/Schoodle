@@ -63,6 +63,7 @@ function showInput() {
 function callBack(count) {
   console.log(count)
   $(`#time-picker span:nth-child(${count})`).show()
+<<<<<<< HEAD
 }
 //LUCY ADDED HERE//
 
@@ -145,3 +146,6 @@ function ajaxPost() {
   )
 }
 
+=======
+}
+>>>>>>> feature-mergefunctions
