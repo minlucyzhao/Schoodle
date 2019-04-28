@@ -21,11 +21,14 @@
     markers.push(marker);
   }
 
-  // Delete ALL Existing Markers //
+  // Delete ALL Existing Markers (before renderCoordinates) //
   function deleteMarkers() {
-    for (let item in markers) {
-      
+    alert("deleteMarkers");
+    for (let i = 0; i < markers.length; i++) {
+      console.log("delete one");
+      markers[i].setMap(null);
     }
+    markers=[];
   }
 
   // Load Map //
@@ -42,6 +45,7 @@
 function renderCoordinates(coordinates) {
   alert("coordinates here");
   console.log(coordinates);
+  deleteMarkers();
   for (let item in coordinates) {
       let latPin = coordinates[item].latitude;
       let lngPin = coordinates[item].longitude;
