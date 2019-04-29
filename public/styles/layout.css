@@ -129,6 +129,40 @@ body {
   transform: translateY(-50%);
 }
 
+.container {
+  width: 100%;
+  top: 15%;
+  left: 25%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.data {
+  text-align: center;
+  color: #fff;
+  font-family: poppins;
+  font-size: 4em;
+  letter-spacing: 12px;
+  font-weight: 600;
+  /*   position: absolute; */
+  /*   top: 50%; */
+  /*   left: 50%; */
+  /*   transform: translate(-50%, -50%); */
+}
+
+.quote {
+  text-align: center;
+  color: #fff;
+  font-family: ubuntu, poppins;
+  font-size: em;
+  letter-spacing: 12px;
+  font-weight: 600;
+  /*   position: fixed; */
+  /*   top: 50%; */
+  /*   left: 50%; */
+  /*   transform: translate(-50%, -50%); */
+}
+
 body {
   background-color: #000000;
   padding: 0px;

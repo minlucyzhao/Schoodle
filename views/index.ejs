@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe" rel="stylesheet">
+
 
   <!-- Jquery UI css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
@@ -25,10 +27,19 @@
   <!-- Javascript files -->
   <script type="text/javascript" src="/scripts/app.js"></script>
   <script type="text/javascript" src="/scripts/cssDesign.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/baffle@0.3.6/dist/baffle.min.js"></script>
 </head>
 
 <body>
   <div id='gradient'>
+    <div class="container">
+      <div class="data">
+        ShodouDODLE>
+      </div>
+      <div class="quote">
+        A web to start a meet
+      </div>
+    </div>
     <form action="/db" method="POST" id='user_info'>
       <!--HOST NAME & EMAIL-->
       <div class='box_container'>
@@ -110,5 +121,23 @@
     </form>
   </div>
 </body>
+<script>
+
+  const text = baffle('.data');
+  text.set({
+    characters: 'zpxzVpasdfh86136░█▒ ░░░█▓ >░░ ▓/▒█▓ █ █>█▒sayg▒ ░░░█▓ >yf',
+    speed: 150
+  });
+  text.start();
+  text.reveal(70000);
+
+  const text1 = baffle('.quote');
+  text1.set({
+    characters: 'qwertyuiopasdfgh8613611888',
+    speed: 140
+  });
+  text1.start();
+  text1.reveal(5500);
+</script>
 
 </html>
