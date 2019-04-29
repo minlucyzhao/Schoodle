@@ -1,7 +1,7 @@
 $primary-color: #fff;
 $background-color: linear-gradient(54deg, #9164ff, #8bfff4);
 $text-color: #3c3f64;
-body {
+#meetbody {
   font: normal 16px/1.5 'Titillium Web', sans-serif;
   background: $background-color;
   color: $text-color;
@@ -11,6 +11,8 @@ body {
 
 // STYLING
 .timeline {
+  width:100%vw;
+  height:100%vh;
   ul {
     li {
       list-style-type: none;
@@ -73,7 +75,7 @@ body {
   }
 }
 
-$bg : #9871fc;
+$bg : #8f9afd;
 $fg: #06c17f;
 $border-width: .5rem;
 $corner-size: 3rem;

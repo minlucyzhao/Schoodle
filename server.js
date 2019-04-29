@@ -59,6 +59,7 @@ app.get('/map', (req, res) => {
   res.render("map");
 });
 
+
 //POSTing form on index.ejs
 app.post('/db', (req, res) => {
   const event_title = req.body.title;
@@ -118,8 +119,8 @@ app.get('/success', (req, res) => {
 app.get('/:hash', (req, res) => {
   const event = hashids.decode(req.params.hash)[0];
   const hash = req.params.hash
-  let time = localDB[67].time
-  const emptyName = []
+  let time = [];
+
   const src = 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Blonde&clotheType=BlazerSweater&clotheColor=Gray02&eyeType=Close&eyebrowType=Default&mouthType=Grimace&skinColor=DarkBrown';
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
@@ -134,10 +135,21 @@ app.get('/:hash', (req, res) => {
       let newtimet = item.to_time
       timet.push(newtimet[0] + newtimet[2] + newtimet[3] + newtimet[4])
     })
-    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event, time: time, hash: hash, src: src })
+    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event, time: time, hash: hash, src: src, db: localDB })
   })
 })
-
+app.post('/:hash/update', (req, res) => {
+  const { name, locaiton, time } = req.body;
+  const id = hashids.decode(req.params.hash)[0];
+  localDB.push({
+    name: name,
+    location: locaiton,
+    time: time
+  })
+})
+app.get('/:hash/update', (req, res) => {
+  res.json(localDB);
+})
 
 //---------------------------------------------
 //GET EXISTING MAP PINS
@@ -271,17 +283,16 @@ function dateGet(today) {
   month[11] = "December";
   return `${month[mm]} ${dd} ${yyyy}`
 }
-app.post('/:hash', (req, res) => {
 
-})
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
 
-const localDB = {
-  67: {
-    time: [1, 2],
-    name: 'yiyao'
-  }
-}
+const localDB = [{
+  time: [1, 2],
+  name: 'yiyao'
+}, {
+  time: [0, 2],
+  name: 'Lucy'
+}]

@@ -99,6 +99,15 @@ function ajaxPost() {
 
   )
 }
-function findCheckbox() {
-
-}
+///using ajax get data;
+// function getAjax() {
+//   $.get('/:hash/update', (data, status) => {
+//     console.log('Ajax get data is', data)
+//     renderData(data)
+//   })
+// }
+// function renderData(data) {
+//   data.forEach((item)=>{
+//     $('')
+//   })
+// }
