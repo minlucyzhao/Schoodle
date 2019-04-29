@@ -5,6 +5,17 @@ body{
   padding: 0px;
   margin: 0px;
 }
+#congratuation{
+  background-image: url("https://images.pexels.com/photos/1089842/pexels-photo-1089842.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  div{
+    position: absolute;
+    top:30%;
+    left:43%;
+  }
+}
 
 #gradient
 {
