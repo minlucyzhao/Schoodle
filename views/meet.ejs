@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="/styles/map.css" type="text/css" />
 </head>
 
-<body>
+<body id='meetbody'>
   <section class="timeline">
     <ul>
       <form id='userJoin' method="POST" action='/db'>
@@ -41,11 +41,12 @@
             </span>
             <input type='checkbox' value='<%= i %>' name='<%= i %>'>
           </div>
-          <span>
-            <% if( time.includes(i) ){ %>
-            <img src=<%=src %>>
-            <%}%>
-          </span>
+          <% for(var item of db){ %>
+          <% if(item.time.includes(i)) {%>
+          <img src=<%=src %>
+          <%= item.name %>
+          <% }%>
+          <% } %>
           <% } %>
         </li>
         <input type='text' name='location' placeholder="Address">
@@ -57,19 +58,6 @@
   <button class="corner-button">
     <span>I'M IN</span>
   </button>
-  <table style="width:100%;">
-    <tr>
-      <td style="table-layout: fixed; width: 50%;">
-        <div id="map"></div>
-      </td>
-    </tr>
-  </table>
-
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbhjMMS01YtWCehERYTwe912Q_2YNJuxI&callback=initMap">
-
-
-
-  </script>
 </body>
 
 </html>

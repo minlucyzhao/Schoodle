@@ -72,7 +72,6 @@ function ajaxPost() {
     let url = form.attr('action');
     let name = $("#userJoin input[name='name']").val();
     let location = $("#userJoin input[name='location']").val();
-    let time = []
     $.each($("input[type='checkbox']:checked"), function () {
       time.push($(this).val());
     })
@@ -98,7 +97,4 @@ function ajaxPost() {
   }
 
   )
-}
-function findCheckbox() {
-
 }

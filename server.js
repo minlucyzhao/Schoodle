@@ -118,8 +118,7 @@ app.get('/success', (req, res) => {
 app.get('/:hash', (req, res) => {
   const event = hashids.decode(req.params.hash)[0];
   const hash = req.params.hash
-  let time = localDB[67].time
-  const emptyName = []
+
   const src = 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Blonde&clotheType=BlazerSweater&clotheColor=Gray02&eyeType=Close&eyebrowType=Default&mouthType=Grimace&skinColor=DarkBrown';
   console.log('event', event)
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
@@ -134,7 +133,7 @@ app.get('/:hash', (req, res) => {
       let newtimet = item.to_time
       timet.push(newtimet[0] + newtimet[2] + newtimet[3] + newtimet[4])
     })
-    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event, time: time, hash: hash, src: src })
+    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event, hash: hash, src: src, db: localDB })
   })
 })
 
@@ -279,9 +278,17 @@ app.listen(PORT, () => {
 });
 
 
-const localDB = {
-  67: {
-    time: [1, 2],
-    name: 'yiyao'
+const localDB = [
+  {
+    name: 'yiyao',
+    time: [1, 2]
+  },
+  {
+    name: 'Lucy',
+    time: [0, 2]
+  },
+  {
+    name: 'Lucy',
+    time: [0, 1]
   }
-}
+]

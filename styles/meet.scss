@@ -1,7 +1,7 @@
 $primary-color: #fff;
 $background-color: linear-gradient(54deg, #9164ff, #8bfff4);
 $text-color: #3c3f64;
-body {
+#meetbody {
   font: normal 16px/1.5 'Titillium Web', sans-serif;
   background: $background-color;
   color: $text-color;
@@ -54,8 +54,8 @@ body {
           letter-spacing: 2px;
         }
      img{
-       width:30%;
-       height:30%;
+       width:20%;
+       height:20%;
        
      }
       }
