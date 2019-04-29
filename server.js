@@ -116,11 +116,9 @@ app.get('/success', (req, res) => {
 })
 
 app.get('/:hash', (req, res) => {
-  const { times, name, location } = req.body
   const event = hashids.decode(req.params.hash)[0];
-  const emptyName = []
-  emptyName.push(name)
-  console.log('event', event)
+  const hash = req.params.hash;
+  // let src = randomSRC();
   knex.select('day', 'from_time', 'to_time').from('dates').where('event_id', event).then(function (result) {
     let date = []
     let timef = []
@@ -129,12 +127,32 @@ app.get('/:hash', (req, res) => {
       let newday = new Date(item.day)
       date.push(dateGet(newday))
       let newtimef = item.from_time
-      timef.push(newtimef[0] + newtimef[2] + newtimef[3] + newtimef[4])
+      timef.push(newtimef[0] + newtimef[1] + newtimef[2] + newtimef[3] + newtimef[4])
       let newtimet = item.to_time
-      timet.push(newtimet[0] + newtimet[2] + newtimet[3] + newtimet[4])
+      timet.push(newtimet[0] + newtimet[1] + newtimet[2] + newtimet[3] + newtimef[4])
+      console.log(timef, timet)
     })
-    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event, time: time, hash: hash, src: src })
+    res.render('meet', { day: date, timef: timef, timet: timet, eventID: event, hash: hash, db: localDB, src: randomSRC() })
   })
+})
+app.post('/:hash/update', (req, res) => {
+  const { time, name, location } = req.body
+  const hash = req.body.params
+  console.log('servise side time is', time)
+  console.log('servise side name is', name)
+  console.log('servise side locaiton is', location)
+  localDB.push({
+    time: time,
+    name: name,
+    location: location
+  })
+  console.log(localDB)
+  console.log(hash)
+  res.redirect(`${hash}`)
+})
+app.get('/ndb', (req, res) => {
+  res.json(localDB)
+  res.send(localDB)
 })
 
 
@@ -270,17 +288,40 @@ function dateGet(today) {
   month[11] = "December";
   return `${month[mm]} ${dd} ${yyyy}`
 }
-app.post('/:hash', (req, res) => {
-
-})
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
+let list = ['https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Blonde&clotheType=BlazerSweater&clotheColor=Gray02&eyeType=Close&eyebrowType=Default&mouthType=Grimace&skinColor=DarkBrown',
+  'https://avataaars.io/?avatarStyle=Circle&topType=Turban&accessoriesType=Prescription01&hatColor=Blue03&hairColor=SilverGray&facialHairType=BeardMagestic&facialHairColor=Auburn&clotheType=GraphicShirt&clotheColor=PastelBlue&graphicType=Diamond&eyeType=Dizzy&eyebrowType=RaisedExcitedNatural&mouthType=Tongue&skinColor=Brown',
+  'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortCurly&accessoriesType=Round&hatColor=Blue03&hairColor=Blonde&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=ShirtCrewNeck&clotheColor=Pink&graphicType=Cumbia&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Eating&skinColor=Light',
+  'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Prescription02&facialHairType=MoustacheMagnum&facialHairColor=Brown&clotheType=CollarSweater&clotheColor=White&eyeType=EyeRoll&eyebrowType=DefaultNatural&mouthType=Eating&skinColor=Black',
+  'https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Kurt&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Red&clotheType=Hoodie&clotheColor=PastelYellow&eyeType=Default&eyebrowType=SadConcernedNatural&mouthType=Default&skinColor=DarkBrown']
 
-const localDB = {
-  67: {
+const localDB = [
+  {
     time: [1, 2],
-    name: 'yiyao'
+    name: 'yiyao',
+    avatar: list[0]
+  },
+  {
+    time: [0, 2],
+    name: 'Lucy',
+    avatar: list[3]
+  },
+  {
+    time: [1],
+    name: 'Shivangna',
+    avatar: list[4]
   }
+]
+function randomSRC() {
+  let list = ['https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Blonde&clotheType=BlazerSweater&clotheColor=Gray02&eyeType=Close&eyebrowType=Default&mouthType=Grimace&skinColor=DarkBrown',
+    'https://avataaars.io/?avatarStyle=Circle&topType=Turban&accessoriesType=Prescription01&hatColor=Blue03&hairColor=SilverGray&facialHairType=BeardMagestic&facialHairColor=Auburn&clotheType=GraphicShirt&clotheColor=PastelBlue&graphicType=Diamond&eyeType=Dizzy&eyebrowType=RaisedExcitedNatural&mouthType=Tongue&skinColor=Brown',
+    'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortCurly&accessoriesType=Round&hatColor=Blue03&hairColor=Blonde&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=ShirtCrewNeck&clotheColor=Pink&graphicType=Cumbia&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Eating&skinColor=Light',
+    'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Prescription02&facialHairType=MoustacheMagnum&facialHairColor=Brown&clotheType=CollarSweater&clotheColor=White&eyeType=EyeRoll&eyebrowType=DefaultNatural&mouthType=Eating&skinColor=Black',
+    'https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Kurt&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Red&clotheType=Hoodie&clotheColor=PastelYellow&eyeType=Default&eyebrowType=SadConcernedNatural&mouthType=Default&skinColor=DarkBrown'
+
+  ]
+  return list[Math.floor(Math.random() * 5)]
 }

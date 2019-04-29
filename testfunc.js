@@ -43,4 +43,28 @@ function dateGet(today) {
     return `${month[mm]} ${dd} ${yyyy}`
 }
 let t = new Date('2019-05-16T00:00:00.000Z')
-console.log(dateGet(t))
+
+
+const localDB = [
+    {
+        time: [1, 2],
+        name: 'yiyao'
+    },
+    {
+        time: [0, 2],
+        name: 'Lucy'
+    },
+    {
+        time: [1],
+        name: 'Shivangna'
+    }
+]
+
+function check(x) {
+    for (item of x) {
+        if (item.time.includes(2)) {
+            console.log(item.name, 'I found you')
+        }
+    }
+}
+check(localDB)

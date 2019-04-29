@@ -31,15 +31,17 @@ body {
         background: #eee;
         }
       
-      div {
+        .date_check {
         position: absolute;
         bottom: 0;
+        left:45px;
         width: 400px;
         height:100%;
         padding: 20px;
         border-radius: 5px;
         display: flex;
         align-items: center;
+        
         time {
           position: absolute;
           background: #f5af19;
@@ -53,22 +55,26 @@ body {
           align-items: center;
           letter-spacing: 2px;
         }
-     img{
-       width:30%;
-       height:30%;
-       
-     }
+    
       }
-      &:nth-of-type(even) {
-        > div {
-          left: 45px;
+      .avata_name{
+        position: absolute;
+        bottom: 0;
+        left:-439px;
+        width: 400px;
+        height:100%;
+        padding: 20px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        img{
+          width:30%;
+          height:30%;
+          flex:1;
+          
         }
       }
-      &:nth-of-type(odd) {
-        > div {
-          left: 45px;
-        }
-      }
+
     }
   }
 }

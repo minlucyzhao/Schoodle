@@ -27,9 +27,10 @@ body {
   background: #eee;
 }
 
-.timeline ul li div {
+.timeline ul li .date_check {
   position: absolute;
   bottom: 0;
+  left: 45px;
   width: 400px;
   height: 100%;
   padding: 20px;
@@ -38,7 +39,7 @@ body {
   align-items: center;
 }
 
-.timeline ul li div time {
+.timeline ul li .date_check time {
   position: absolute;
   background: #f5af19;
   width: 100px;
@@ -52,13 +53,22 @@ body {
   letter-spacing: 2px;
 }
 
-.timeline ul li div img {
-  width: 30%;
-  height: 30%;
+.timeline ul li .avata_name {
+  position: absolute;
+  bottom: 0;
+  left: -439px;
+  width: 400px;
+  height: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 
-.timeline ul li:nth-of-type(even) > div {
-  left: 45px;
+.timeline ul li .avata_name img {
+  width: 30%;
+  height: 30%;
+  flex: 1;
 }
 
 .corner-button {

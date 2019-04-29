@@ -82,14 +82,10 @@ function ajaxPost() {
     $.ajax({
       type: "POST",
       url: url,
-      data: { name, location, time },
+      data: { name: name, location: location, time: time },
     }).then(
       () => {
-        let src = 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=MoustacheFancy&facialHairColor=Blonde&clotheType=BlazerSweater&clotheColor=Gray02&eyeType=Close&eyebrowType=Default&mouthType=Grimace&skinColor=DarkBrown';
-        let $img = $('<img>').attr('src', src)
-        $('.timeline div').append($img)
-        let $username = name;
-        $('.timeline div').append(`<span>${$username}</span>`)
+
       }
 
 
@@ -99,6 +95,4 @@ function ajaxPost() {
 
   )
 }
-function findCheckbox() {
 
-}

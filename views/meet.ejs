@@ -28,12 +28,12 @@
 </head>
 
 <body>
-  <!-- <section class="timeline">
+  <section class="timeline">
     <ul>
-      <form id='userJoin' method="POST" action='/db'>
+      <form id='userJoin' method="POST" action='/<%= hash %>/update'>
         <% for(i=0;i< day.length;i++) { %>
         <li>
-          <div>
+          <div class='date_check'>
             <span>
               <%= day[i] %>
               <%= timef[i] %> to
@@ -41,11 +41,15 @@
             </span>
             <input type='checkbox' value='<%= i %>' name='<%= i %>'>
           </div>
-          <span>
-            <% if( time.includes(i) ){ %>
-            <img src=<%=src %>>
-            <%}%>
-          </span>
+          <div class='avata_name'>
+            <%for(let item of db){ %>
+            <% if(item.time.includes(i)) {%>
+            <img src=<%=item.avatar %>
+            <span>
+              <%= item.name %></span>
+            <% }%>
+            <% } %>
+          </div>
           <% } %>
         </li>
         <input type='text' name='location' placeholder="Address">
@@ -56,18 +60,7 @@
   </section>
   <button class="corner-button">
     <span>I'M IN</span>
-  </button> -->
-  <table style="width:100%;">
-    <tr>
-      <td style="table-layout: fixed; width: 50%;">
-        <div id="map"></div>
-      </td>
-    </tr>
-  </table>
-
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbhjMMS01YtWCehERYTwe912Q_2YNJuxI&callback=initMap">
-
-  </script>
+  </button>
 </body>
 
 </html>
